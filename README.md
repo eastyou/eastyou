@@ -38,6 +38,9 @@
 | [graphpaper](https://github.com/eastyou/graphpaper) | 方格纸 / 点阵纸 / 坐标纸生成器，A4 精确排版可直接打印 | SVG 网格、坐标刻度、毫米排版 |
 | [nametag](https://github.com/eastyou/nametag) | 姓名桌牌：名单 CSV 生成 A4 折叠桌牌，前后两面镜像 | CSV 校验、旋转镜像、自适应字号 |
 | [maze](https://github.com/eastyou/maze) | 迷宫生成器：完美迷宫配入口出口，可选答案页 | DFS 生成、BFS 求解、SVG 绘制 |
+| [sudoku](https://github.com/eastyou/sudoku) | 数独生成器：唯一解、三档难度、可选答案页 | 位掩码回溯、MRV、唯一解校验 |
+| [certkit](https://github.com/eastyou/certkit) | 奖状生成器：名单 CSV 生成 A4 横向可打印奖状 | CSV 编码识别、自适应字号、SVG 排版 |
+| [readinglog](https://github.com/eastyou/readinglog) | 阅读记录表：书目 CSV 生成 A4 可打印表格 | CSV 校验、分页、打印排版 |
 
 ---
 
@@ -370,6 +373,36 @@ nametag -i 名单.csv --strict -o 桌牌.html
 
 ```bash
 maze --width 15 --height 22 --seed 2026 --solution -o 迷宫.html
+```
+
+## sudoku
+
+[![CI](https://github.com/eastyou/sudoku/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/sudoku/actions/workflows/ci.yml)
+
+数独生成器：先生成完整解，再逐格挖洞，每挖一格都用回溯计数确认解仍然唯一。简单 40 个提示数、中等 33 个、困难 28 个，`--solution` 追加答案页，填入的数字用蓝色标出。
+
+```bash
+sudoku --difficulty medium --seed 2026 --solution -o 数独.html
+```
+
+## certkit
+
+[![CI](https://github.com/eastyou/certkit/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/certkit/actions/workflows/ci.yml)
+
+奖状生成器：用 Excel 维护一份「姓名,奖项,说明」名单，一条命令生成整套 A4 横向奖状。双线红框、红色「奖」印章、中文落款日期都是现成的，姓名过长自动缩小字号，正文自动折行。
+
+```bash
+certkit -i 获奖名单.csv --issuer 星海中学 --date 2026-11-21 -o 奖状.html
+```
+
+## readinglog
+
+[![CI](https://github.com/eastyou/readinglog/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/readinglog/actions/workflows/ci.yml)
+
+阅读记录表：把书单整理成「书名,作者,页数」，生成带序号、书名、作者、页数和开始/完成/签字栏的 A4 表格。按 `--rows` 自动分页，末页补空行，页脚统计总本数与总页数；不传书单则生成空白表。
+
+```bash
+readinglog -i 阅读书单.csv --rows 6 -o 阅读记录.html
 ```
 
 ---
