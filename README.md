@@ -13,6 +13,10 @@
 | [srt-tool](https://github.com/eastyou/srt-tool) | SRT 字幕体检、平移、变速、转 WebVTT | 时间轴运算、边界处理 |
 | [portpeek](https://github.com/eastyou/portpeek) | 跨平台端口占用查询，看清哪个进程占了端口 | 子进程、多平台适配 |
 | [jsonl-csv](https://github.com/eastyou/jsonl-csv) | JSONL 与 CSV 双向流式转换，适合大文件 | 流式 IO、CSV 转义 |
+| [miniredis](https://github.com/eastyou/miniredis) | 用 asyncio 从零实现的迷你 Redis | RESP2、TTL、AOF |
+| [pure-raytracer](https://github.com/eastyou/pure-raytracer) | 纯 Python 光线追踪渲染器 | 路径追踪、手写 PNG |
+| [minihttpd](https://github.com/eastyou/minihttpd) | asyncio 版 HTTP/1.1 框架与服务器 | 路由、中间件、keep-alive |
+| [cronit](https://github.com/eastyou/cronit) | cron 表达式校验与下次执行时间 | 解析器、时间搜索 |
 
 ---
 
@@ -70,6 +74,57 @@ portpeek --check 3000
 ```bash
 jsonlcsv to-csv -i events.jsonl > events.csv
 jsonlcsv to-jsonl -i events.csv --infer-types
+```
+
+## miniredis
+
+[![CI](https://github.com/eastyou/miniredis/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/miniredis/actions/workflows/ci.yml)
+
+用 asyncio 从零写的 Redis：RESP2 线协议、增量解析、五种数据结构、键过期、AOF 持久化。兼容官方 `redis-cli`，79 个测试覆盖协议分片、命令语义与真实 socket。
+
+```bash
+miniredis-server --port 6399 --aof data.aof
+miniredis-cli SET greeting hello
+```
+
+## pure-raytracer
+
+[![CI](https://github.com/eastyou/pure-raytracer/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/pure-raytracer/actions/workflows/ci.yml)
+
+纯 Python 光线追踪渲染器：漫反射、金属、玻璃折射、软阴影、景深，并用 `zlib` + `struct` 手写 PNG 编码，零第三方依赖。
+
+![渲染示例](https://raw.githubusercontent.com/eastyou/pure-raytracer/main/examples/demo.png)
+
+```bash
+raytrace -o render.png -W 800 -H 450 -s 32
+```
+
+## minihttpd
+
+[![CI](https://github.com/eastyou/minihttpd/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/minihttpd/actions/workflows/ci.yml)
+
+基于 asyncio 的迷你 HTTP/1.1 框架：`{param}` 路由、中间件、JSON 请求体、静态文件、HEAD、405 自动协商、keep-alive 与流水线，附带 57 个测试。
+
+```python
+from minihttpd.app import App
+from minihttpd.response import Response
+
+app = App()
+
+@app.get("/hello/{name}")
+async def hello(request, name: str) -> Response:
+    return Response.json({"hello": name})
+```
+
+## cronit
+
+[![CI](https://github.com/eastyou/cronit/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/cronit/actions/workflows/ci.yml)
+
+cron 表达式工具：校验写法、翻译成中文、算出未来 N 次执行时间。支持范围、步长、逗号列表、英文缩写与 `@daily` 别名，能正确处理闰年 2 月 29 日。
+
+```bash
+cronit next "0 9 * * MON-FRI" -n 3
+cronit explain "*/15 * * * *"
 ```
 
 ---
