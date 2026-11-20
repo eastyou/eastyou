@@ -80,7 +80,7 @@ jsonlcsv to-jsonl -i events.csv --infer-types
 
 [![CI](https://github.com/eastyou/miniredis/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/miniredis/actions/workflows/ci.yml)
 
-用 asyncio 从零写的 Redis：RESP2 线协议、增量解析、五种数据结构、键过期、AOF 持久化。兼容官方 `redis-cli`，79 个测试覆盖协议分片、命令语义与真实 socket。
+用 asyncio 从零写的 Redis：RESP2 线协议、增量解析、四种数据结构、键过期、AOF 持久化。兼容官方 `redis-cli`，79 个测试覆盖协议分片、命令语义与真实 socket。
 
 ```bash
 miniredis-server --port 6399 --aof data.aof
