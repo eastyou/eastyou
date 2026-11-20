@@ -26,6 +26,9 @@
 | [paperkit](https://github.com/eastyou/paperkit) | 试卷生成器：题库 CSV 生成可打印试卷与答案页 | CSV 校验、选项重排、打印排版 |
 | [wordcard](https://github.com/eastyou/wordcard) | 英语单词默写纸：单词表 CSV 生成 A4 默写卡 | 模式切换、随机排序、打印排版 |
 | [classtimer](https://github.com/eastyou/classtimer) | 课堂倒计时：预设时间、全屏显示、结束提示音 | 单文件 HTML、原生 JS、无依赖 |
+| [timetable](https://github.com/eastyou/timetable) | 课程表生成器：课程 CSV 生成可打印课程表，自动检测冲突 | 时间区间、周次交集、A4 横向布局 |
+| [geoviz](https://github.com/eastyou/geoviz) | 世界时区换算：终端查时差，生成 24 小时带对照图 | 固定偏移、跨日计算、表格对齐 |
+| [mindmap](https://github.com/eastyou/mindmap) | 缩进大纲转 SVG 思维导图，可投屏可打印 | 树布局、贝塞尔曲线、文字宽度估算 |
 
 ---
 
@@ -233,6 +236,37 @@ wordcard -i 单词.csv -o 默写纸.html --mode mixed --columns 2
 
 ```bash
 classtimer -o 课堂计时.html --presets 1,3,5,10
+```
+
+## timetable
+
+[![CI](https://github.com/eastyou/timetable/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/timetable/actions/workflows/ci.yml)
+
+课程表生成器：用 Excel 维护课程 CSV，一条命令生成一页 A4 横向课程表。课块按真实时间比例绘制，同一天时间重叠且周次相交的课会被列出并用红框标出。
+
+```bash
+timetable -i 课程.csv -o 课程表.html --title "初二(3)班课程表"
+```
+
+## geoviz
+
+[![CI](https://github.com/eastyou/geoviz/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/geoviz/actions/workflows/ci.yml)
+
+世界时区换算：在终端一次查询多个城市，自动标注「前一天 / 次日」；也能生成一页 24 小时昼夜色带对照图，适合地理课讲时区和日界线。
+
+```bash
+geoviz convert --at "2026-11-21 12:00" --from 北京 --to 纽约,伦敦,东京
+geoviz html --at "2026-11-21 12:00" --from 北京 -o 时区对照.html
+```
+
+## mindmap
+
+[![CI](https://github.com/eastyou/mindmap/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/mindmap/actions/workflows/ci.yml)
+
+把缩进大纲转换成 SVG 思维导图：空格或 Tab 表示层级，自动完成树形布局，输出单文件 HTML，可投屏、可打印。
+
+```bash
+mindmap -i 复习提纲.txt -o 思维导图.html --title "初中物理复习"
 ```
 
 ---
