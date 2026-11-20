@@ -41,6 +41,9 @@
 | [sudoku](https://github.com/eastyou/sudoku) | 数独生成器：唯一解、三档难度、可选答案页 | 位掩码回溯、MRV、唯一解校验 |
 | [certkit](https://github.com/eastyou/certkit) | 奖状生成器：名单 CSV 生成 A4 横向可打印奖状 | CSV 编码识别、自适应字号、SVG 排版 |
 | [readinglog](https://github.com/eastyou/readinglog) | 阅读记录表：书目 CSV 生成 A4 可打印表格 | CSV 校验、分页、打印排版 |
+| [bingo](https://github.com/eastyou/bingo) | 课堂宾果卡：词表生成 A4 卡片与叫号单 | 随机分卡、去重校验、打印排版 |
+| [flashcard](https://github.com/eastyou/flashcard) | 双向记忆卡：术语释义 CSV 生成正反面卡片 | 双面镜像、字号自适应、打印排版 |
+| [attendance](https://github.com/eastyou/attendance) | 班级考勤表：名单生成整月 A4 横向表格 | 月份校验、周末标色、自动分页 |
 
 ---
 
@@ -403,6 +406,39 @@ certkit -i 获奖名单.csv --issuer 星海中学 --date 2026-11-21 -o 奖状.ht
 
 ```bash
 readinglog -i 阅读书单.csv --rows 6 -o 阅读记录.html
+```
+
+## bingo
+
+[![CI](https://github.com/eastyou/bingo/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/bingo/actions/workflows/ci.yml)
+
+课堂宾果卡生成器：词表每行一个词，生成 A4 2×2 排版的卡片和末页三列叫号单。卡片互不重复，奇数尺寸中心留「★」自由格，支持 3×3、4×4、5×5 三种尺寸，`--seed` 固定后可以补印同一批。
+
+```bash
+bingo -i 单词表.csv --size 5 --count 8 --seed 2026 -o 宾果.html
+bingo -i 单词表.csv --size 3 --count 30 --no-call-sheet -o 低年级宾果.html
+```
+
+## flashcard
+
+[![CI](https://github.com/eastyou/flashcard/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/flashcard/actions/workflows/ci.yml)
+
+双向记忆卡：读「术语,释义」CSV，每 4 张一组，先印正面再印同组背面。`--flip long` 长边翻页让背面左右镜像，`--flip short` 保持原序；释义自动折行并选择最大可用字号，`--no-back` 只印正面。
+
+```bash
+flashcard -i 记忆卡.csv -o 记忆卡.html
+flashcard -i 记忆卡.csv --flip short --no-back -o 正面卡.html
+```
+
+## attendance
+
+[![CI](https://github.com/eastyou/attendance/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/attendance/actions/workflows/ci.yml)
+
+班级考勤表：名单生成整月 A4 横向表格，日列 1 到月末自动铺满，周末浅灰底、红色表头。超过每页行数自动分页并重复表头，日列按 267mm 可用宽度压缩，右侧留出勤、请假、迟到统计列。
+
+```bash
+attendance -i 名单.csv --month 2026-11 --rows 30 -o 考勤表.html
+attendance -i 名单.csv --month 2026-11 --rows 15 --group 初二3班 -o 考勤表.html
 ```
 
 ---
