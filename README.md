@@ -44,6 +44,9 @@
 | [bingo](https://github.com/eastyou/bingo) | 课堂宾果卡：词表生成 A4 卡片与叫号单 | 随机分卡、去重校验、打印排版 |
 | [flashcard](https://github.com/eastyou/flashcard) | 双向记忆卡：术语释义 CSV 生成正反面卡片 | 双面镜像、字号自适应、打印排版 |
 | [attendance](https://github.com/eastyou/attendance) | 班级考勤表：名单生成整月 A4 横向表格 | 月份校验、周末标色、自动分页 |
+| [answersheet](https://github.com/eastyou/answersheet) | 选择题答题卡：按题量生成 A4 涂卡答题卡 | 分栏分页、选项字母、打印排版 |
+| [lessonplan](https://github.com/eastyou/lessonplan) | 教案模板：分节文本生成 A4 教案 | 文本解析、编码识别、文档排版 |
+| [weeklyplan](https://github.com/eastyou/weeklyplan) | 学生周计划表：任务 CSV 生成一周计划 | 星期归一化、日期计算、打印排版 |
 
 ---
 
@@ -439,6 +442,38 @@ flashcard -i 记忆卡.csv --flip short --no-back -o 正面卡.html
 ```bash
 attendance -i 名单.csv --month 2026-11 --rows 30 -o 考勤表.html
 attendance -i 名单.csv --month 2026-11 --rows 15 --group 初二3班 -o 考勤表.html
+```
+
+## answersheet
+
+[![CI](https://github.com/eastyou/answersheet/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/answersheet/actions/workflows/ci.yml)
+
+选择题答题卡：给定题量与选项数，生成 A4 可打印答题卡。默认两栏、每栏 30 题，题目多了自动分页；选项圆圈从 A 到 F 自动编号，顶部留姓名、班级、学号、日期填写栏。
+
+```bash
+answersheet -q 50 --options 4 --columns 2 --subject 语文 -o 答题卡.html
+answersheet -q 70 --options 2 --columns 1 -o 判断题答题卡.html
+```
+
+## lessonplan
+
+[![CI](https://github.com/eastyou/lessonplan/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/lessonplan/actions/workflows/ci.yml)
+
+教案排版工具：按「小节：」写纯文本，生成干净可打印的 A4 教案。科目、班级、课时自动排到页首，教学过程里的「导入：」不会误判成小节，`--teacher`、`--date` 可补执教与日期。
+
+```bash
+lessonplan -i 教案.txt --teacher 王老师 --date 2026-11-21 -o 教案.html
+```
+
+## weeklyplan
+
+[![CI](https://github.com/eastyou/weeklyplan/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/weeklyplan/actions/workflows/ci.yml)
+
+学生周计划表：读「星期,任务」CSV，生成一周七列、带勾选框的 A4 周计划。指定本周周一后，表头自动标出每一天的日期；不传任务文件就生成空白表，直接打印手写。
+
+```bash
+weeklyplan -i 任务.csv --start 2026-11-23 -o 周计划.html
+weeklyplan --rows 6 -o 空白周计划.html
 ```
 
 ---
