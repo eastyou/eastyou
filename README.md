@@ -35,6 +35,9 @@
 | [tianzige](https://github.com/eastyou/tianzige) | 田字格练字帖：生字表生成 A4 字帖，支持描红与米字格 | 分页排版、CSS 格线、打印 |
 | [clockdrill](https://github.com/eastyou/clockdrill) | 钟表练习纸：看钟面写时间、看时间画指针 | SVG 钟面、角度计算、答案页 |
 | [wordsearch](https://github.com/eastyou/wordsearch) | 英语单词找词游戏：单词表生成字母网格与答案 | 网格放置、交叉校验、答案高亮 |
+| [graphpaper](https://github.com/eastyou/graphpaper) | 方格纸 / 点阵纸 / 坐标纸生成器，A4 精确排版可直接打印 | SVG 网格、坐标刻度、毫米排版 |
+| [nametag](https://github.com/eastyou/nametag) | 姓名桌牌：名单 CSV 生成 A4 折叠桌牌，前后两面镜像 | CSV 校验、旋转镜像、自适应字号 |
+| [maze](https://github.com/eastyou/maze) | 迷宫生成器：完美迷宫配入口出口，可选答案页 | DFS 生成、BFS 求解、SVG 绘制 |
 
 ---
 
@@ -335,6 +338,38 @@ clockdrill --mode mix --count 12 --granularity 15 -o 钟表练习.html
 
 ```bash
 wordsearch -i examples/words.txt -o 找词游戏.html --size 12
+```
+
+## graphpaper
+
+[![CI](https://github.com/eastyou/graphpaper/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/graphpaper/actions/workflows/ci.yml)
+
+方格纸、点阵纸、坐标纸生成器：选好类型和 2~20 毫米的间距，一条命令输出可直接打印的 A4 页面。坐标纸带居中的 x/y 轴、箭头、每格刻度和整厘米数字；每 10 毫米一条加深辅助线，数格子不费眼。
+
+```bash
+graphpaper --type coordinate --spacing 5 --title "函数图像练习" -o 坐标纸.html
+graphpaper --type dot --spacing 10 --pages 2 -o 点阵纸.html
+```
+
+## nametag
+
+[![CI](https://github.com/eastyou/nametag/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/nametag/actions/workflows/ci.yml)
+
+姓名桌牌生成器：名单 CSV 两列「姓名,班级」，自动识别 UTF-8 与 GBK，生成 A4 折叠桌牌。上半张旋转 180°，沿虚线对折后前后两面都是正的；字号按姓名长度自适应，同班重名会列出所在行。
+
+```bash
+nametag -i examples/students.csv -o 姓名桌牌.html --columns 2 --rows 2
+nametag -i 名单.csv --strict -o 桌牌.html
+```
+
+## maze
+
+[![CI](https://github.com/eastyou/maze/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/maze/actions/workflows/ci.yml)
+
+迷宫生成器：DFS 挖出没有环的完美迷宫，左上角入口、右下角出口，格子自动缩放到 A4 可用区域。加 `--solution` 追加答案页，用 BFS 求出最短通路并标注步数。
+
+```bash
+maze --width 15 --height 22 --seed 2026 --solution -o 迷宫.html
 ```
 
 ---
