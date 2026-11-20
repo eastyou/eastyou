@@ -29,6 +29,9 @@
 | [timetable](https://github.com/eastyou/timetable) | 课程表生成器：课程 CSV 生成可打印课程表，自动检测冲突 | 时间区间、周次交集、A4 横向布局 |
 | [geoviz](https://github.com/eastyou/geoviz) | 世界时区换算：终端查时差，生成 24 小时带对照图 | 固定偏移、跨日计算、表格对齐 |
 | [mindmap](https://github.com/eastyou/mindmap) | 缩进大纲转 SVG 思维导图，可投屏可打印 | 树布局、贝塞尔曲线、文字宽度估算 |
+| [mathdrill](https://github.com/eastyou/mathdrill) | 口算题生成器：四则运算自由组合，自动去重，生成 A4 练习纸 | 随机生成、题目指纹、打印排版 |
+| [labbook](https://github.com/eastyou/labbook) | 实验记录单：实验清单 CSV 生成可打印 A4 记录单 | CSV 校验、分隔符解析、打印排版 |
+| [dutyrota](https://github.com/eastyou/dutyrota) | 值日轮值表：名单均衡轮转，自动标注日期并打印 | 均衡分配、同日去重、日期计算 |
 
 ---
 
@@ -267,6 +270,37 @@ geoviz html --at "2026-11-21 12:00" --from 北京 -o 时区对照.html
 
 ```bash
 mindmap -i 复习提纲.txt -o 思维导图.html --title "初中物理复习"
+```
+
+## mathdrill
+
+[![CI](https://github.com/eastyou/mathdrill/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/mathdrill/actions/workflows/ci.yml)
+
+口算题生成器：加、减、乘、除自由组合，数值范围和题目数量可调。减法不出负数，除法保证整除，加法和乘法会把 `3+5` 与 `5+3` 视为同一题去重。输出一页 A4 练习纸，附参考答案。
+
+```bash
+mathdrill --ops add,sub --max 20 --count 40 -o 口算练习.html
+mathdrill --ops add,sub,mul,div --count 50 --seed 2026 -o 综合练习.html
+```
+
+## labbook
+
+[![CI](https://github.com/eastyou/labbook/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/labbook/actions/workflows/ci.yml)
+
+实验记录单生成器：用 Excel 维护实验清单 CSV，一条命令生成带目的、器材、步骤、安全提示和手写记录区的 A4 记录单。表头缺失、名称为空会指出具体行号。
+
+```bash
+labbook -i 实验清单.csv -o 实验记录单.html --rows 6
+```
+
+## dutyrota
+
+[![CI](https://github.com/eastyou/dutyrota/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/dutyrota/actions/workflows/ci.yml)
+
+值日轮值表生成器：名单交给它，指定周数、每周天数和每天人数，自动均衡轮转。任意两人值日次数最多相差 1 次，同一天不会重复，给出起始日期还能标出每周的具体日期。
+
+```bash
+dutyrota -i 名单.txt -o 值日表.html --weeks 4 --per-day 2 --start 2026-11-23
 ```
 
 ---
