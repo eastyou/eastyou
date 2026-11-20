@@ -50,6 +50,9 @@
 | [rubric](https://github.com/eastyou/rubric) | 评分量规：维度与等级 CSV 生成 A4 评价表 | CSV 校验、等级扩展、打印排版 |
 | [syllabus](https://github.com/eastyou/syllabus) | 教学进度表：周次 CSV 生成学期进度表 | 周次校验、分页、打印排版 |
 | [booklabel](https://github.com/eastyou/booklabel) | 图书标签：书名编号 CSV 生成标签纸 | 自动编号、行列布局、打印排版 |
+| [homeworklog](https://github.com/eastyou/homeworklog) | 作业收缴表：学生名单与作业项目生成 A4 登记表 | 任务解析、连续编号、自动分页 |
+| [parentlog](https://github.com/eastyou/parentlog) | 家校沟通记录：CSV 生成记录表，支持学生筛选与方式汇总 | 日期校验、精确筛选、统计分页 |
+| [errorbook](https://github.com/eastyou/errorbook) | 错题整理册：错题 CSV 生成 A4 卡片与复习打卡页 | 科目筛选、卡片分页、打印排版 |
 
 ---
 
@@ -508,6 +511,36 @@ syllabus -i 进度.csv --term 2026秋季学期 --subject 数学 --group 高一3�
 ```bash
 booklabel -i 图书.csv --owner 三班图书角 -o 图书标签.html
 booklabel -i 图书.csv --columns 2 --rows 6 -o 小标签.html
+```
+
+## homeworklog
+
+[![CI](https://github.com/eastyou/homeworklog/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/homeworklog/actions/workflows/ci.yml)
+
+班级作业收缴表：读单列学生名单，用 `--tasks` 指定要检查的作业，生成 A4 横向登记表。每页 20 人、序号跨页连续，预留手写作业格和备注栏，适合课前快速勾选。
+
+```bash
+homeworklog -i 学生.csv --tasks 语文练习册,数学口算,英语朗读 --date 2026-11-21 -o 作业收缴表.html
+```
+
+## parentlog
+
+[![CI](https://github.com/eastyou/parentlog/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/parentlog/actions/workflows/ci.yml)
+
+家校沟通记录表：读「日期,学生,方式,事项,后续」CSV，汇总沟通方式次数并生成 A4 记录表。支持按学生精确筛选，每页 12 条，长事项自动换行。
+
+```bash
+parentlog -i 沟通记录.csv --student 张三 -o 家校沟通记录.html
+```
+
+## errorbook
+
+[![CI](https://github.com/eastyou/errorbook/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/errorbook/actions/workflows/ci.yml)
+
+学生错题整理册：读「科目,题目,错因,正解,复习日期」CSV，生成两题一页的 A4 卡片。每题附三次复习打卡区，可按科目筛选，打印后就能装订使用。
+
+```bash
+errorbook -i 错题.csv --subject 数学 -o 数学错题册.html
 ```
 
 ---
