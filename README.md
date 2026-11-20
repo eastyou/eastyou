@@ -32,6 +32,9 @@
 | [mathdrill](https://github.com/eastyou/mathdrill) | 口算题生成器：四则运算自由组合，自动去重，生成 A4 练习纸 | 随机生成、题目指纹、打印排版 |
 | [labbook](https://github.com/eastyou/labbook) | 实验记录单：实验清单 CSV 生成可打印 A4 记录单 | CSV 校验、分隔符解析、打印排版 |
 | [dutyrota](https://github.com/eastyou/dutyrota) | 值日轮值表：名单均衡轮转，自动标注日期并打印 | 均衡分配、同日去重、日期计算 |
+| [tianzige](https://github.com/eastyou/tianzige) | 田字格练字帖：生字表生成 A4 字帖，支持描红与米字格 | 分页排版、CSS 格线、打印 |
+| [clockdrill](https://github.com/eastyou/clockdrill) | 钟表练习纸：看钟面写时间、看时间画指针 | SVG 钟面、角度计算、答案页 |
+| [wordsearch](https://github.com/eastyou/wordsearch) | 英语单词找词游戏：单词表生成字母网格与答案 | 网格放置、交叉校验、答案高亮 |
 
 ---
 
@@ -301,6 +304,37 @@ labbook -i 实验清单.csv -o 实验记录单.html --rows 6
 
 ```bash
 dutyrota -i 名单.txt -o 值日表.html --weeks 4 --per-day 2 --start 2026-11-23
+```
+
+## tianzige
+
+[![CI](https://github.com/eastyou/tianzige/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/tianzige/actions/workflows/ci.yml)
+
+田字格练字帖生成器：输入生字，自动排成多页 A4 字帖。支持田字格、米字格和方格，每行前几个格子浅色描红，其余留白，自动分页并标注页码。
+
+```bash
+tianzige -i examples/zitie.txt -o 练字帖.html --rows-per-char 2
+tianzige --text "永和九年" --grid mi --repeat 10 --trace 3 -o 米字格.html
+```
+
+## clockdrill
+
+[![CI](https://github.com/eastyou/clockdrill/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/clockdrill/actions/workflows/ci.yml)
+
+钟表练习纸生成器：看钟面写时间、看时间画指针，或两者混合。钟面用 SVG 绘制，时针按分钟偏移，符合真实钟表；时间按 1/5/10/15/30 分钟间隔生成并自动去重。
+
+```bash
+clockdrill --mode mix --count 12 --granularity 15 -o 钟表练习.html
+```
+
+## wordsearch
+
+[![CI](https://github.com/eastyou/wordsearch/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/wordsearch/actions/workflows/ci.yml)
+
+英语单词找词游戏生成器：把单词表放进字母网格，横竖斜八个方向随机藏词，单词可交叉共用字母。输出可打印的游戏页和彩色高亮答案页，附起始行列与方向箭头。
+
+```bash
+wordsearch -i examples/words.txt -o 找词游戏.html --size 12
 ```
 
 ---
