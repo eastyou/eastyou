@@ -17,6 +17,12 @@
 | [pure-raytracer](https://github.com/eastyou/pure-raytracer) | 纯 Python 光线追踪渲染器 | 路径追踪、手写 PNG |
 | [minihttpd](https://github.com/eastyou/minihttpd) | asyncio 版 HTTP/1.1 框架与服务器 | 路由、中间件、keep-alive |
 | [cronit](https://github.com/eastyou/cronit) | cron 表达式校验与下次执行时间 | 解析器、时间搜索 |
+| [classseat](https://github.com/eastyou/classseat) | 班级座位表：前排优先、固定座位、需分开，输出可打印 A4 | 约束满足、多轮随机重试 |
+| [classpick](https://github.com/eastyou/classpick) | 课堂随机点名与分组，一轮不重复、可排除请假 | 随机抽样、状态持久化 |
+| [gradekit](https://github.com/eastyou/gradekit) | 成绩分析：各科平均分、及格率与分数段分布 | CSV 校验、统计、SVG 图表 |
+| [chemviz](https://github.com/eastyou/chemviz) | 初中化学可视化：元素周期表、原子结构、分子模型与方程式配平 | SVG 绘图、分数高斯消元 |
+| [physicsviz](https://github.com/eastyou/physicsviz) | 初中物理可视化：凸透镜光路、串并联电路、运动图像 | 成像公式、电路计算、SVG |
+| [mathviz](https://github.com/eastyou/mathviz) | 初中数学可视化：函数图像、勾股定理、频数分布直方图 | 函数特征、SVG 坐标、统计 |
 
 ---
 
@@ -125,6 +131,75 @@ cron 表达式工具：校验写法、翻译成中文、算出未来 N 次执行
 ```bash
 cronit next "0 9 * * MON-FRI" -n 3
 cronit explain "*/15 * * * *"
+```
+
+## classseat
+
+[![CI](https://github.com/eastyou/classseat/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/classseat/actions/workflows/ci.yml)
+
+给老师用的座位表生成器。近视的同学优先前排、个别同学固定座位、指定的两人不相邻，这些要求写进名单后一次生成 A4 横向座位表，可直接打印。
+
+```bash
+classseat -i 名单.csv --rows 6 --columns 7 --front-rows 2 -o 座位表.html
+```
+
+## classpick
+
+[![CI](https://github.com/eastyou/classpick/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/classpick/actions/workflows/ci.yml)
+
+课堂随机点名与分组。真正的随机抽样，可一次点多人；用状态文件保证一轮内不重复，点完自动开启新一轮；临时请假的同学可以排除。
+
+```bash
+classpick pick -i 名单.txt --state .classpick.json
+classpick group -i 名单.txt -g 3
+```
+
+## gradekit
+
+[![CI](https://github.com/eastyou/gradekit/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/gradekit/actions/workflows/ci.yml)
+
+把 Excel 成绩表另存为 CSV，一条命令得到各科平均分、中位数、及格率、优秀率和分数段分布，并生成一页 A4 打印报告。缺考自动跳过，报告只含汇总数据，不出现个人排名。
+
+```bash
+gradekit -i 成绩.csv -o 报告.html --csv 统计.csv
+```
+
+## chemviz
+
+[![CI](https://github.com/eastyou/chemviz/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/chemviz/actions/workflows/ci.yml)
+
+初中化学可视化：前 20 号元素周期表、原子结构示意图、9 种常见分子模型，一页 A4 横向打印。命令行还能算相对分子质量，并用线性代数自动配平化学方程式。
+
+```bash
+chemviz html -o 化学可视化.html
+chemviz mass "Ca(OH)2"
+chemviz balance "Fe + O2 = Fe3O4"
+```
+
+## physicsviz
+
+[![CI](https://github.com/eastyou/physicsviz/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/physicsviz/actions/workflows/ci.yml)
+
+初中物理可视化：输入物距和焦距就画出凸透镜成像光路，输入电阻和电压就算串并联电路，输入速度和时间就画 s-t、v-t 图像，结果可汇总成打印页。
+
+```bash
+physicsviz lens -u 30 -f 10
+physicsviz circuit -t series -r 10,20 -v 6
+physicsviz motion -v 5 -t 10
+physicsviz html -o 物理可视化.html
+```
+
+## mathviz
+
+[![CI](https://github.com/eastyou/mathviz/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/mathviz/actions/workflows/ci.yml)
+
+初中数学可视化：一次函数、二次函数、反比例函数的图像与关键点，勾股定理的三正方形面积图，以及带平均数和中位数的频数分布直方图。
+
+```bash
+mathviz linear -k 2 -b 1
+mathviz quadratic -a 1 -b -2 -c -3
+mathviz pythagoras -a 3 -b 4
+mathviz html -o 数学可视化.html
 ```
 
 ---
