@@ -47,6 +47,9 @@
 | [answersheet](https://github.com/eastyou/answersheet) | 选择题答题卡：按题量生成 A4 涂卡答题卡 | 分栏分页、选项字母、打印排版 |
 | [lessonplan](https://github.com/eastyou/lessonplan) | 教案模板：分节文本生成 A4 教案 | 文本解析、编码识别、文档排版 |
 | [weeklyplan](https://github.com/eastyou/weeklyplan) | 学生周计划表：任务 CSV 生成一周计划 | 星期归一化、日期计算、打印排版 |
+| [rubric](https://github.com/eastyou/rubric) | 评分量规：维度与等级 CSV 生成 A4 评价表 | CSV 校验、等级扩展、打印排版 |
+| [syllabus](https://github.com/eastyou/syllabus) | 教学进度表：周次 CSV 生成学期进度表 | 周次校验、分页、打印排版 |
+| [booklabel](https://github.com/eastyou/booklabel) | 图书标签：书名编号 CSV 生成标签纸 | 自动编号、行列布局、打印排版 |
 
 ---
 
@@ -474,6 +477,37 @@ lessonplan -i 教案.txt --teacher 王老师 --date 2026-11-21 -o 教案.html
 ```bash
 weeklyplan -i 任务.csv --start 2026-11-23 -o 周计划.html
 weeklyplan --rows 6 -o 空白周计划.html
+```
+
+## rubric
+
+[![CI](https://github.com/eastyou/rubric/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/rubric/actions/workflows/ci.yml)
+
+评分量规：维度做行、等级做列，CSV 表头写等级名，一键生成 A4 横向评价表。支持 1~12 个维度、2~6 个等级，描述自动换行，学生自评、互评、教师评分都能直接在上面打勾。
+
+```bash
+rubric -i 作文量规.csv --task 写人作文 -o 评分量规.html
+```
+
+## syllabus
+
+[![CI](https://github.com/eastyou/syllabus/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/syllabus/actions/workflows/ci.yml)
+
+学期教学进度表：读「周次,日期,教学内容,作业」CSV，生成 A4 纵向进度表。周次自动校验、超出每页行数自动分页并重复表头，学期、学科、班级可组合成副标题。
+
+```bash
+syllabus -i 进度.csv --term 2026秋季学期 --subject 数学 --group 高一3班 -o 教学进度.html
+```
+
+## booklabel
+
+[![CI](https://github.com/eastyou/booklabel/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/booklabel/actions/workflows/ci.yml)
+
+班级图书角标签：读「书名,编号」CSV，生成 A4 标签纸。默认 3×8 共 24 个，虚线边框便于裁剪，书名按长度自动缩放，编号留空时自动补 `001`，底部可印归属文字。
+
+```bash
+booklabel -i 图书.csv --owner 三班图书角 -o 图书标签.html
+booklabel -i 图书.csv --columns 2 --rows 6 -o 小标签.html
 ```
 
 ---
