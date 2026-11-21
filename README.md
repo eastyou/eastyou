@@ -92,6 +92,12 @@
 | [solarscale](https://github.com/eastyou/solarscale) | 太阳系比例海报：真实比例的天体与距离 | 比例换算、SVG 圆、A4 海报 |
 | [staffnotes](https://github.com/eastyou/staffnotes) | 五线谱识谱卡：音名、频率与加线 | 谱表坐标、十二平均律、SVG 谱线 |
 | [sentencemix](https://github.com/eastyou/sentencemix) | 句子重排练习纸：中英词卡打乱 | 分词、确定性打乱、打印排版 |
+| [unitconv](https://github.com/eastyou/unitconv) | 单位换算练习纸：长度、质量、时间、容积 | 单位表、精确换算、打印排版 |
+| [primefactor](https://github.com/eastyou/primefactor) | 质因数分解与因数树练习纸 | 试除分解、树布局、SVG 绘制 |
+| [fractionops](https://github.com/eastyou/fractionops) | 分数四则运算练习纸与答案页 | Fraction、带分数解析、随机出题 |
+| [noteduration](https://github.com/eastyou/noteduration) | 音符时值与小节补全练习 | 拍号换算、附点音符、SVG 符头 |
+| [nets](https://github.com/eastyou/nets) | 长方体展开图：表面积、体积与折叠图 | 六面布局、尺寸校验、SVG 排版 |
+| [symmetry](https://github.com/eastyou/symmetry) | 轴对称图形补全练习：四种对称轴 | 网格镜像、对称轴判定、打印排版 |
 
 ---
 
@@ -1004,6 +1010,78 @@ staffnotes note C4
 sentencemix sheet --count 6 --seed 3 --answers -o sheet.html
 sentencemix sheet -i sentences.txt --answers
 sentencemix mix "The cat sleeps on the sofa." --seed 1
+```
+
+## unitconv
+
+[![CI](https://github.com/eastyou/unitconv/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/unitconv/actions/workflows/ci.yml)
+
+长度、质量、时间、容积四类单位的换算工具，既能查单个数值，也能一次生成整页 A4 换算练习。答案带单位，种子固定时题目可复现。
+
+```bash
+unitconv convert 3.5 --from km --to m
+unitconv units --category mass
+unitconv sheet --category length --count 20 --seed 7 --answers -o sheet.html
+```
+
+## primefactor
+
+[![CI](https://github.com/eastyou/primefactor/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/primefactor/actions/workflows/ci.yml)
+
+质数判定、质因数分解、全部因数与因数树一步到位。练习纸随机抽题，答案页把分解过程画成树，适合讲“短除法”与“分解质因数”。
+
+```bash
+primefactor factorize 360
+primefactor divisors 360
+primefactor sheet --count 8 --seed 5 --answers -o sheet.html
+```
+
+## fractionops
+
+[![CI](https://github.com/eastyou/fractionops/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/fractionops/actions/workflows/ci.yml)
+
+用标准库 `fractions.Fraction` 做分数四则运算，支持 `3/4`、`1 1/2`、`-1 1/2` 等写法。可只出加减或四则混合，答案自动约分并转成带分数。
+
+```bash
+fractionops calc "1 1/2" + "3/4"
+fractionops sheet --count 20 --ops +,- --seed 5 --answers -o sheet.html
+fractionops sheet --count 12 --ops +,-,*,/ --negative -o mixed.html
+```
+
+## noteduration
+
+[![CI](https://github.com/eastyou/noteduration/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/noteduration/actions/workflows/ci.yml)
+
+从全音符到十六分音符，附点自动乘 1.5，拍号统一换算成四分音符拍数。题目给出不完整小节，问“还差几拍”，答案支持整数与分数。
+
+```bash
+noteduration notes
+noteduration note "dotted half"
+noteduration sheet --signature 6/8 --count 8 --seed 3 --answers -o sheet.html
+```
+
+## nets
+
+[![CI](https://github.com/eastyou/nets/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/nets/actions/workflows/ci.yml)
+
+把长方体和正方体画成标准十字展开图，每个面标注名称与边长，沿实线裁剪、沿相邻边折叠即可成型。同时给出表面积、体积与展开图尺寸。
+
+```bash
+nets net 5 4 3 -o cuboid.html
+nets info 5 4 3
+nets sheet --count 8 --seed 3 --answers -o sheet.html
+```
+
+## symmetry
+
+[![CI](https://github.com/eastyou/symmetry/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/symmetry/actions/workflows/ci.yml)
+
+在方格纸上补全轴对称图形。支持竖直、水平、主对角线、副对角线四种对称轴，答案用浅黄色标出需要补的格子，也可以直接查询任意格点图形的对称轴。
+
+```bash
+symmetry axes "0,0 0,2 1,1" --size 3
+symmetry complete "0,0" --size 4 --axis vertical
+symmetry sheet --count 8 --seed 3 --answers -o sheet.html
 ```
 
 ---
