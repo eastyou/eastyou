@@ -68,6 +68,12 @@
 | [unitcircle](https://github.com/eastyou/unitcircle) | 单位圆转盘：三角函数值盘与对照表 | 弧度换算、三角函数、可剪指针 |
 | [pixelgrid](https://github.com/eastyou/pixelgrid) | 像素画网格：坐标编号与按坐标涂色 | 行列坐标、图案缩放、颜色图例 |
 | [storyboard](https://github.com/eastyou/storyboard) | 分镜纸：定格动画与短片分镜模板 | 分镜分页、画幅比例、通栏布局 |
+| [cipherwheel](https://github.com/eastyou/cipherwheel) | 凯撒密码转盘：可打印同心圆盘、命令行编解码与解码练习卡 | 字母环旋转、SVG 同心圆、打印排版 |
+| [logicgrid](https://github.com/eastyou/logicgrid) | 逻辑推理题生成器：4×4 逻辑网格，唯一解校验 | 排列枚举、线索贪心、唯一解 |
+| [timeline](https://github.com/eastyou/timeline) | 历史事件时间轴：CSV 生成可打印的 A4 时间轴 | CSV 校验、比例定位、自动分页 |
+| [mapgrid](https://github.com/eastyou/mapgrid) | 经纬网练习纸：可配置经纬范围、坐标题与答案页 | 等距投影、SVG 刻度、半球判断 |
+| [quizbowl](https://github.com/eastyou/quizbowl) | 课堂抢答计分板：离线单文件、多队计分与倒计时 | 单文件 HTML、原生 JS、Web Audio |
+| [patternblocks](https://github.com/eastyou/patternblocks) | 图案积木裁剪片：统一边长的几何积木与挑战卡 | 多边形几何、鞋带公式、页面布局 |
 
 ---
 
@@ -708,6 +714,69 @@ pixelgrid --width 16 --height 16 --pattern heart -o 像素画网格.html
 
 ```bash
 storyboard --frames 6 --per-page 3 --ratio 4:3 -o 分镜纸.html
+```
+
+## cipherwheel
+
+[![CI](https://github.com/eastyou/cipherwheel/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/cipherwheel/actions/workflows/ci.yml)
+
+凯撒密码转盘：一页 A4 打印出内外两圈字母，剪下内盘用图钉固定，旋转就能编解码。配套命令行编解码、26 种位移穷举，以及带答案页的解码练习卡。
+
+```bash
+cipherwheel disk -s 3 -o 转盘.html
+cipherwheel encode "HELLO WORLD" -s 3
+cipherwheel practice -n 10 -s 3 --answers -o 练习卡.html
+```
+
+## logicgrid
+
+[![CI](https://github.com/eastyou/logicgrid/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/logicgrid/actions/workflows/ci.yml)
+
+4×4 逻辑推理题生成器：4 个人、4 种颜色、4 种宠物、4 个地点，随机出题后穷举 13824 种组合校验唯一解，输出 A4 题面（打勾网格 + 线索列表）与答案页。
+
+```bash
+logicgrid --seed 7 --count 2 -o 推理题.html
+```
+
+## timeline
+
+[![CI](https://github.com/eastyou/timeline/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/timeline/actions/workflows/ci.yml)
+
+事件 CSV 一行一件事，表头为 `year,title,description,category`。按年份排序、按比例在年代尺上定位、自动分页，并可按分类与年份区间筛选，输出可打印的时间轴。
+
+```bash
+timeline demo -o events.csv
+timeline -i events.csv --start 1900 --end 2000 --category 科技 -o 时间轴.html
+```
+
+## mapgrid
+
+[![CI](https://github.com/eastyou/mapgrid/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/mapgrid/actions/workflows/ci.yml)
+
+经纬网练习纸：可配置经纬范围与刻度间隔，生成四边带刻度的 SVG 网格，自动配「给坐标找位置」和「看图写坐标」两类题，附答案页与半球判断。
+
+```bash
+mapgrid -o 经纬网.html --lat-min -60 --lat-max 60 --step 15 --questions 8
+```
+
+## quizbowl
+
+[![CI](https://github.com/eastyou/quizbowl/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/quizbowl/actions/workflows/ci.yml)
+
+课堂抢答计分板：生成一个不引用任何网络资源的单文件 HTML，双击即用。每队一张卡片，键盘 A/S/D/F 给对应队伍加分，空格键控制倒计时，Z 撤销，R 重置，可全屏投影。
+
+```bash
+quizbowl -o 计分板.html --teams "红队,蓝队,黄队,绿队" --seconds 60
+```
+
+## patternblocks
+
+[![CI](https://github.com/eastyou/patternblocks/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/patternblocks/actions/workflows/ci.yml)
+
+图案积木裁剪片：等边三角形、菱形、梯形、正六边形、正方形统一使用 30mm 边长，三角形族面积比严格为 1:2:3:6。输出多页 A4 裁剪图、面积对照表与拼图挑战卡。
+
+```bash
+patternblocks -o 积木.html --side 30 --each 6
 ```
 
 ---
