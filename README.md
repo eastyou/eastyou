@@ -134,6 +134,12 @@
 | [anglepairs](https://github.com/eastyou/anglepairs) | 角的分类与计算：余补角、钟面夹角、度分秒 | 角度边界、浮点容差、SVG 图示 |
 | [tallychart](https://github.com/eastyou/tallychart) | 计数符号与统计图：频数表、柱状图、读图题 | CSV 校验、SVG 柱状图、统计 |
 | [labtools](https://github.com/eastyou/labtools) | 实验器材：别名查询、分类浏览与用途配对 | 词表校验、别名解析、确定性配对 |
+| [measureword](https://github.com/eastyou/measureword) | 中文量词：常见名词搭配查询、填空与选择题 | 词表校验、可接受量词、种子出题 |
+| [radicals](https://github.com/eastyou/radicals) | 汉字偏旁：名称含义、字→偏旁与配对练习 | 44 个偏旁、269 字映射、题库 |
+| [prepositions](https://github.com/eastyou/prepositions) | 英语方位介词：场景图、例句与四选一练习 | SVG 场景、介词搭配、种子出题 |
+| [functionmachine](https://github.com/eastyou/functionmachine) | 函数机器：输入输出找规律与规则推断 | 规则解析、简单推断、SVG 图示 |
+| [probability](https://github.com/eastyou/probability) | 简单概率：硬币、骰子、摸球与转盘实验 | 分数概率、期望值、SVG 图表 |
+| [recycling](https://github.com/eastyou/recycling) | 垃圾分类：四分类查询、判断与配对练习 | 60 种物品、别名解析、题库 |
 
 ---
 
@@ -1555,6 +1561,79 @@ tallychart demo -o tally.html
 labtools info 酒精灯
 labtools list --category 测量
 labtools match --count 8 --seed 4 -o sheet.html
+```
+
+## measureword
+
+[![CI](https://github.com/eastyou/measureword/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/measureword/actions/workflows/ci.yml)
+
+中文量词：收录 60 个常用名词及其首选、可接受量词，支持搭配判断、分类浏览，并生成四选一和填空两种可打印 A4 练习页。
+
+```bash
+measureword info 书
+measureword check 书 本
+measureword quiz --count 10 --seed 3 -o sheet.html
+```
+
+## radicals
+
+[![CI](https://github.com/eastyou/radicals/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/radicals/actions/workflows/ci.yml)
+
+汉字偏旁：44 个常用偏旁与 269 个常用字映射，支持按字符或名称查询、字→偏旁判断、按分类浏览，并生成选择题与配对题。
+
+```bash
+radicals info 氵
+radicals char 河
+radicals match --count 8 --seed 3 -o sheet.html
+```
+
+## prepositions
+
+[![CI](https://github.com/eastyou/prepositions/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/prepositions/actions/workflows/ci.yml)
+
+英语方位介词：12 个常用介词与 8 个球盒场景，支持用法查询、SVG 场景图、四选一练习和答案页。
+
+```bash
+prepositions info on
+prepositions scene under -o scene.html
+prepositions quiz --count 8 --seed 3 -o sheet.html
+```
+
+## functionmachine
+
+[![CI](https://github.com/eastyou/functionmachine/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/functionmachine/actions/workflows/ci.yml)
+
+函数机器：解析加、减、乘、除四类规则，支持规则套用、输入输出表、根据数据推断简单规则，并生成三类四选一练习。
+
+```bash
+functionmachine apply "+3" 5
+functionmachine table "*3" 1 2 3
+functionmachine infer 1 4 2 5
+```
+
+## probability
+
+[![CI](https://github.com/eastyou/probability/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/probability/actions/workflows/ci.yml)
+
+简单概率：硬币、单骰、双骰点数和、摸球、转盘与期望值，概率以分数和百分比显示，并生成 SVG 转盘、柱状图与练习页。
+
+```bash
+probability coin 正面
+probability dice 7
+probability bag "红:3,蓝:1" 红
+probability quiz --count 10 --seed 5 -o sheet.html
+```
+
+## recycling
+
+[![CI](https://github.com/eastyou/recycling/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/recycling/actions/workflows/ci.yml)
+
+垃圾分类：60 种常见垃圾按可回收物、有害垃圾、厨余垃圾、其他垃圾四类整理，支持别名查询、分类判断、选择题和配对题。
+
+```bash
+recycling info 香蕉皮
+recycling classify 塑料瓶
+recycling match --count 8 --seed 3 -o sheet.html
 ```
 
 ---
