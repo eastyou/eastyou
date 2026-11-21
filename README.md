@@ -128,6 +128,12 @@
 | [synonyms](https://github.com/eastyou/synonyms) | 近义词反义词：查询与两类练习 | 双向查询、连线题、选择题 |
 | [weatherchart](https://github.com/eastyou/weatherchart) | 天气记录：CSV 统计与图表报告 | 数据校验、柱状图、折线图 |
 | [provincecapitals](https://github.com/eastyou/provincecapitals) | 省级行政区与省会配对练习 | 34 个行政区、别名补全、题库 |
+| [calendarquiz](https://github.com/eastyou/calendarquiz) | 日历推理：月历生成、星期推算与日期差练习 | 日期算法、月历网格、确定性出题 |
+| [verbtense](https://github.com/eastyou/verbtense) | 动词时态：规则与不规则变位、可打印练习页 | 词形变化、不规则词表、种子出题 |
+| [wordladder](https://github.com/eastyou/wordladder) | 英语单词梯：BFS 最短路径与可打印练习卡 | BFS、词库校验、确定性出题 |
+| [anglepairs](https://github.com/eastyou/anglepairs) | 角的分类与计算：余补角、钟面夹角、度分秒 | 角度边界、浮点容差、SVG 图示 |
+| [tallychart](https://github.com/eastyou/tallychart) | 计数符号与统计图：频数表、柱状图、读图题 | CSV 校验、SVG 柱状图、统计 |
+| [labtools](https://github.com/eastyou/labtools) | 实验器材：别名查询、分类浏览与用途配对 | 词表校验、别名解析、确定性配对 |
 
 ---
 
@@ -1474,6 +1480,81 @@ weatherchart demo -o report.html
 provincecapitals capital 广东
 provincecapitals regions
 provincecapitals matching --count 8 -o sheet.html
+```
+
+## calendarquiz
+
+[![CI](https://github.com/eastyou/calendarquiz/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/calendarquiz/actions/workflows/ci.yml)
+
+日历与日期推理：严格解析 `YYYY-MM-DD`，覆盖闰年判断、每月天数、周一开头的月历网格、星期推算、第 n 个星期几、日期差与日期加减，并生成四选一练习页和答案页。
+
+```bash
+calendarquiz month 2024 5 -o examples/month.html
+calendarquiz weekday 2024-05-13
+calendarquiz nth 2024 5 0 2
+calendarquiz quiz --count 10 --seed 7 -o quiz.html
+```
+
+## verbtense
+
+[![CI](https://github.com/eastyou/verbtense/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/verbtense/actions/workflows/ci.yml)
+
+英语动词变位：内置 60 个常用不规则动词，规则变化覆盖 `-s`/`-es`、辅音 + y、去 e、双写辅音和 `ie → ying`，支持时态查询与可复现的四选一练习页。
+
+```bash
+verbtense info go
+verbtense conj study third
+verbtense quiz --count 8 --seed 3 -o sheet.html
+```
+
+## wordladder
+
+[![CI](https://github.com/eastyou/wordladder/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/wordladder/actions/workflows/ci.yml)
+
+英语单词梯：内置 607 个四字母常用词，用 BFS 求最短换词路径，支持自定义词库、按种子确定性出题，并生成可打印的单词梯卡片与练习页。
+
+```bash
+wordladder ladder cold warm
+wordladder demo --seed 2 -o ladder.html
+wordladder sheet --count 5 --seed 4 -o sheet.html
+```
+
+## anglepairs
+
+[![CI](https://github.com/eastyou/anglepairs/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/anglepairs/actions/workflows/ci.yml)
+
+角的分类与计算：判断零角、锐角、直角、钝角、平角、优角和周角，求余角与补角、补全三角形内角、计算钟面最小夹角，并支持度分秒互转与 SVG 图示。
+
+```bash
+anglepairs classify 90
+anglepairs complement 30
+anglepairs clock 3 0
+anglepairs quiz --count 10 --seed 5 -o angles.html
+```
+
+## tallychart
+
+[![CI](https://github.com/eastyou/tallychart/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/tallychart/actions/workflows/ci.yml)
+
+计数符号与统计图：把数量写成五笔一组「||||/」，严格解析计数符号，从 CSV 生成频数表、SVG 柱状图和可打印读图练习。
+
+```bash
+tallychart marks 7
+tallychart count "||||/||"
+tallychart table data.csv
+tallychart demo -o tally.html
+```
+
+## labtools
+
+[![CI](https://github.com/eastyou/labtools/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/labtools/actions/workflows/ci.yml)
+
+实验器材识别：收录 36 件初中实验室常见器材，覆盖测量、加热、分离、观察、安全、其他六类，支持中英文别名查询、分类浏览，并生成器材—用途连线题和四选一选择题，附答案页。
+
+```bash
+labtools info 酒精灯
+labtools list --category 测量
+labtools match --count 8 --seed 4 -o sheet.html
 ```
 
 ---
