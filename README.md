@@ -122,6 +122,12 @@
 | [contractions](https://github.com/eastyou/contractions) | 缩略形式：49 组双向转换与练习纸 | 对照表、大小写归一、打印排版 |
 | [foodchain](https://github.com/eastyou/foodchain) | 食物链：草原/海洋/森林的链条与角色 | 图查询、生产者判定、练习生成 |
 | [constellation](https://github.com/eastyou/constellation) | 星座：五个星座连线图与星名归属题 | 坐标映射、SVG 连线、题库 |
+| [timecalc](https://github.com/eastyou/timecalc) | 时间计算：时刻加减、跨日时长与课表 | 24 小时循环、12 小时制、SVG 时间轴 |
+| [areaperimeter](https://github.com/eastyou/areaperimeter) | 面积与周长：六种图形与组合图形 | 参数校验、SVG 标注、练习单 |
+| [punctuation](https://github.com/eastyou/punctuation) | 中文标点：规则、配对检查与练习 | 16 个标点、配对检查、题库 |
+| [synonyms](https://github.com/eastyou/synonyms) | 近义词反义词：查询与两类练习 | 双向查询、连线题、选择题 |
+| [weatherchart](https://github.com/eastyou/weatherchart) | 天气记录：CSV 统计与图表报告 | 数据校验、柱状图、折线图 |
+| [provincecapitals](https://github.com/eastyou/provincecapitals) | 省级行政区与省会配对练习 | 34 个行政区、别名补全、题库 |
 
 ---
 
@@ -1396,6 +1402,78 @@ foodchain sheet --count 10 --ecosystem 森林 -o sheet.html
 constellation chart 猎户座 -o orion.svg
 constellation poster -o poster.html
 constellation sheet --count 10 --kinds star -o sheet.html
+```
+
+## timecalc
+
+[![CI](https://github.com/eastyou/timecalc/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/timecalc/actions/workflows/ci.yml)
+
+时间计算工具：严格解析 `HH:MM`，支持时刻加减、跨零点时长、口语化 12 小时制和连续排课，输出带 SVG 时间轴的打印课表。输入越界、格式错误都会给出中文提示。
+
+```bash
+timecalc add 07:30 45
+timecalc diff 23:30 00:30
+timecalc sheet 08:00 40 10 40 -o sheet.html
+```
+
+## areaperimeter
+
+[![CI](https://github.com/eastyou/areaperimeter/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/areaperimeter/actions/workflows/ci.yml)
+
+面积与周长：长方形、正方形、三角形、平行四边形、梯形、圆和组合图形，参数校验覆盖零、负数、非数字，生成带尺寸标注的 SVG 与含答案的练习单。
+
+```bash
+areaperimeter rect 8 5
+areaperimeter trap 4 10 6 5 5
+areaperimeter sheet -o sheet.html
+```
+
+## punctuation
+
+[![CI](https://github.com/eastyou/punctuation/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/punctuation/actions/workflows/ci.yml)
+
+中文标点学习工具：收录 16 个标点的名称、用法和例句，检查引号/括号/书名号是否成对，统计标点数量，并用 18 道题库生成可打印练习。
+
+```bash
+punctuation info 。
+punctuation check "他说：“走吧。”"
+punctuation quiz --count 8 --seed 7 -o sheet.html
+```
+
+## synonyms
+
+[![CI](https://github.com/eastyou/synonyms/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/synonyms/actions/workflows/ci.yml)
+
+近义词与反义词：24 组近义词、24 组反义词，支持双向查询、关系判断、连线题和四选一选择题，题目与选项均可通过随机种子复现。
+
+```bash
+synonyms info 简单
+synonyms matching --count 8 -o matching.html
+synonyms quiz --count 6 -o quiz.html
+```
+
+## weatherchart
+
+[![CI](https://github.com/eastyou/weatherchart/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/weatherchart/actions/workflows/ci.yml)
+
+天气记录统计：校验日期、天气类型与温度范围，读取 UTF-8 CSV 并精确到行号报错，输出天气分布、气温极值、纯 SVG 柱状图与折线图报告。
+
+```bash
+weatherchart stats data.csv
+weatherchart sample -o sample.csv
+weatherchart demo -o report.html
+```
+
+## provincecapitals
+
+[![CI](https://github.com/eastyou/provincecapitals/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/provincecapitals/actions/workflows/ci.yml)
+
+中国 34 个省级行政区与省会：支持简称补全、分区浏览、正反向查询，并生成省份—省会连线题和两种方向的选择题，附答案页。
+
+```bash
+provincecapitals capital 广东
+provincecapitals regions
+provincecapitals matching --count 8 -o sheet.html
 ```
 
 ---
