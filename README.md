@@ -116,6 +116,12 @@
 | [watercycle](https://github.com/eastyou/watercycle) | 水循环：可打印示意图、环节查询与练习纸 | SVG 示意图、环节数据、练习题生成 |
 | [plantcell](https://github.com/eastyou/plantcell) | 细胞结构：标注挂图、结构查询与练习纸 | SVG 标注、动植物差异、练习题 |
 | [wordfamily](https://github.com/eastyou/wordfamily) | 英语词族：卡片、单词查询与补全练习纸 | 词族数据、押韵判断、打印排版 |
+| [hundredchart](https://github.com/eastyou/hundredchart) | 百数表：完整表、挖空表与位置/相邻数/跳数练习 | SVG 网格、边界处理、打印排版 |
+| [rounding](https://github.com/eastyou/rounding) | 四舍五入：整十/整百/整千取整与数轴示意 | 整数取整、刻度区间、SVG |
+| [plurals](https://github.com/eastyou/plurals) | 名词复数：六类规则与单复数互转 | 规则表、反向还原、练习生成 |
+| [contractions](https://github.com/eastyou/contractions) | 缩略形式：49 组双向转换与练习纸 | 对照表、大小写归一、打印排版 |
+| [foodchain](https://github.com/eastyou/foodchain) | 食物链：草原/海洋/森林的链条与角色 | 图查询、生产者判定、练习生成 |
+| [constellation](https://github.com/eastyou/constellation) | 星座：五个星座连线图与星名归属题 | 坐标映射、SVG 连线、题库 |
 
 ---
 
@@ -1318,6 +1324,78 @@ plantcell sheet --count 6 --plant-only --answers -o sheet.html
 wordfamily cards -o cards.html
 wordfamily words -at
 wordfamily sheet --count 10 --answers -o sheet.html
+```
+
+## hundredchart
+
+[![CI](https://github.com/eastyou/hundredchart/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/hundredchart/actions/workflows/ci.yml)
+
+10×10 百数表：完整表 SVG、指定数字留空、行列位置与上下左右相邻数查询、2–10 步长的跳数序列。练习纸支持三种题型混合出题，相邻数自动处理边界，答案单独一页。
+
+```bash
+hundredchart chart --holes 3,17,58 -o blank.svg
+hundredchart position 47
+hundredchart sheet --count 10 --answers -o sheet.html
+```
+
+## rounding
+
+[![CI](https://github.com/eastyou/rounding/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/rounding/actions/workflows/ci.yml)
+
+四舍五入练习：整十、整百、整千三种数位，自动给出相邻刻度，帮助判断该看哪一位。数轴 SVG 标出原数与两端刻度，恰好一半的数字按进位处理。
+
+```bash
+rounding calc 149 --place hundred
+rounding line 149 --place hundred -o line.svg
+rounding sheet --count 12 --answers -o sheet.html
+```
+
+## plurals
+
+[![CI](https://github.com/eastyou/plurals/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/plurals/actions/workflows/ci.yml)
+
+英语名词复数：加 s、加 es、变 y 为 i、变 f/fe 为 v、不规则、单复数同形六类规则，57 个常用词。支持单数查复数、复数还原单数，以及按规则筛选的练习纸。
+
+```bash
+plurals plural baby
+plurals singular mice
+plurals sheet --count 10 --rules irregular -o sheet.html
+```
+
+## contractions
+
+[![CI](https://github.com/eastyou/contractions/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/contractions/actions/workflows/ci.yml)
+
+英语缩略形式：49 组 be / have / will / would 与否定句缩写，完整形式与缩略形式双向转换，忽略大小写、多余空格与弯引号。练习纸支持两个方向的题型。
+
+```bash
+contractions contract "I am"
+contractions expand "won't"
+contractions sheet --count 10 --kinds expand -o sheet.html
+```
+
+## foodchain
+
+[![CI](https://github.com/eastyou/foodchain/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/foodchain/actions/workflows/ci.yml)
+
+食物链：草原、海洋、森林三个生态系统共 7 条食物链、20 种生物。自动识别生产者与消费者，支持天敌、食物查询和链条顺序校验，练习纸覆盖天敌、食物、角色三类题。
+
+```bash
+foodchain chains
+foodchain role 草
+foodchain sheet --count 10 --ecosystem 森林 -o sheet.html
+```
+
+## constellation
+
+[![CI](https://github.com/eastyou/constellation/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/constellation/actions/workflows/ci.yml)
+
+星座认星：北斗七星、猎户座、仙后座、天鹅座、天琴座共 29 颗有名星，内置坐标与连线，输出单星座 SVG 或整页海报。练习覆盖星数、观测季节与星名归属。
+
+```bash
+constellation chart 猎户座 -o orion.svg
+constellation poster -o poster.html
+constellation sheet --count 10 --kinds star -o sheet.html
 ```
 
 ---
