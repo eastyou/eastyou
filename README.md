@@ -56,6 +56,12 @@
 | [tangram](https://github.com/eastyou/tangram) | 七巧板活动包：精确裁剪图与拼搭挑战卡 | 多边形几何、面积守恒、SVG 排版 |
 | [spirodraw](https://github.com/eastyou/spirodraw) | 万花尺描摹画册：参数方程生成内摆线画册 | 闭合周期、视觉去重、SVG 曲线 |
 | [storydice](https://github.com/eastyou/storydice) | 故事骰子：四类故事要素的可打印折叠骰子 | 立方展开图、可复现随机、打印折叠 |
+| [fractionkit](https://github.com/eastyou/fractionkit) | 分数条教具：精确等分的分数、小数、百分数对照条 | 分数运算、自适应字级、打印裁剪 |
+| [numberline](https://github.com/eastyou/numberline) | 数轴练习纸：可配置范围、步长与留空标签 | 整数刻度、毫米排版、SVG |
+| [geoboard](https://github.com/eastyou/geoboard) | 几何钉板：可打印点阵钉板与面积周长挑战卡 | 点阵坐标、题库、分页 |
+| [metronome](https://github.com/eastyou/metronome) | 课堂节拍器：离线单文件，重拍高亮与倒计时 | Web Audio、状态机、响应式 |
+| [morsecode](https://github.com/eastyou/morsecode) | 摩尔斯电码：命令行编解码与可打印练习卡 | 编码表、双向转换、打印排版 |
+| [exitticket](https://github.com/eastyou/exitticket) | 课堂出门条：五种模板的 A4 四联反馈卡 | 模板注册表、裁切线、分页 |
 
 ---
 
@@ -574,6 +580,68 @@ spirodraw --curves 6 --seed 42 -o 万花尺画册.html
 
 ```bash
 storydice --sets 2 --seed 42 -o 故事骰子.html
+```
+
+## fractionkit
+
+[![CI](https://github.com/eastyou/fractionkit/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/fractionkit/actions/workflows/ci.yml)
+
+分数条教具：把 1 整条按分母 2~16 精确等分，每段同时标注分数、小数和百分数。用 `Fraction` 计算段宽，不产生浮点累积误差，虚线裁剪后可用于比大小、找等值分数。
+
+```bash
+fractionkit --max-denominator 12 --copies 2 -o 分数条教具.html
+```
+
+## numberline
+
+[![CI](https://github.com/eastyou/numberline/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/numberline/actions/workflows/ci.yml)
+
+数轴练习纸：设置起止范围、步长和留空规则，生成毫米级精度的 A4 数轴。零刻度加粗，被隐藏的数字只保留刻度线，适合读数、描点和不等式练习。
+
+```bash
+numberline --start -10 --end 10 --step 1 --blank-every 2 -o 数轴练习纸.html
+```
+
+## geoboard
+
+[![CI](https://github.com/eastyou/geoboard/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/geoboard/actions/workflows/ci.yml)
+
+几何钉板：输出 N×N 点阵钉板与面积、周长挑战卡。钉点坐标可测试，挑战题库 16 题，按种子洗牌，同一种子结果可复现。
+
+```bash
+geoboard --size 5 --boards 2 --challenges 4 -o 几何钉板.html
+```
+
+## metronome
+
+[![CI](https://github.com/eastyou/metronome/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/metronome/actions/workflows/ci.yml)
+
+课堂节拍器：单个离线 HTML，用 Web Audio 合成节拍声，重拍高亮，支持空格键启停、±5 BPM 调整、点击测速和练习倒计时，适合投影使用。
+
+```bash
+metronome --bpm 90 --beats 4 --accent 1 --minutes 5 -o 节拍器.html
+```
+
+## morsecode
+
+[![CI](https://github.com/eastyou/morsecode/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/morsecode/actions/workflows/ci.yml)
+
+摩尔斯电码工具：命令行双向编解码，支持字母、数字和常用标点；也能生成 A4 练习卡，正面写单词和书写线，答案单独成页。
+
+```bash
+morsecode --text "SOS 2026"
+morsecode --decode "... --- ... / -.-"
+morsecode --card --count 12 --seed 42 -o 摩尔斯练习卡.html
+```
+
+## exitticket
+
+[![CI](https://github.com/eastyou/exitticket/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/exitticket/actions/workflows/ci.yml)
+
+课堂出门条：内置 321 回顾、一句话总结、最困惑的地方、自评量表、快速检测五种模板。A4 每页 4 张，虚线裁剪，编号连续。
+
+```bash
+exitticket --template 321 --copies 4 -o 课堂出门条.html
 ```
 
 ---
