@@ -104,6 +104,12 @@
 | [rulerread](https://github.com/eastyou/rulerread) | 厘米尺读数：零刻度与非零起点练习纸 | SVG 刻度、长度换算、打印排版 |
 | [change](https://github.com/eastyou/change) | 购物找零：总价、付款、找零与硬币图 | 整数分运算、贪心拆分、SVG |
 | [venn](https://github.com/eastyou/venn) | 韦恩图：二/三集合交并差与练习纸 | 集合运算、区域枚举、SVG 三圆 |
+| [protractor](https://github.com/eastyou/protractor) | 量角器：0–180° 内外圈读数与读角画角练习 | SVG 圆弧、角度分类、打印排版 |
+| [thermometer](https://github.com/eastyou/thermometer) | 温度计：-30–50°C 读数与温差练习 | 刻度映射、零上零下、SVG |
+| [numberbond](https://github.com/eastyou/numberbond) | 数的分合：十格阵与求部分求总数练习 | 分合模型、十格阵、打印排版 |
+| [placevalue](https://github.com/eastyou/placevalue) | 位值积木：千/百/十/个读数与组数 | 数位拆解、积木绘制、打印排版 |
+| [coordinate](https://github.com/eastyou/coordinate) | 四象限坐标：读点、连点成图与答案页 | 象限判定、坐标映射、SVG 网格 |
+| [decimalgrid](https://github.com/eastyou/decimalgrid) | 小数方格图：涂色读数与小数百分数互化 | 百分位模型、约分、SVG 方格 |
 
 ---
 
@@ -1162,6 +1168,78 @@ change sheet --count 12 --seed 3 --answers -o sheet.html
 venn rules
 venn sheet --count 12 --size 3 --seed 3 --answers -o sheet.html
 venn sheet --count 10 --size 2 --kinds union,difference -o two-sets.html
+```
+
+## protractor
+
+[![CI](https://github.com/eastyou/protractor/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/protractor/actions/workflows/ci.yml)
+
+半圆量角器 SVG，1°/5°/10° 三级刻度与内外双圈读数。读角题自动画出角终边，画角题只给空白量角器，支持锐角、直角、钝角分类与随机种子复现。
+
+```bash
+protractor sheet --count 8 --answers -o sheet.html
+protractor sheet --kinds read --min 30 --max 150 -o read.html
+protractor classify 120
+```
+
+## thermometer
+
+[![CI](https://github.com/eastyou/thermometer/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/thermometer/actions/workflows/ci.yml)
+
+-30–50°C 竖直温度计，水银柱随温度升降。读数题看温度计写数，温差题计算从零下到零上的变化，自动判断上升或下降。
+
+```bash
+thermometer sheet --count 8 --answers -o sheet.html
+thermometer show 15 -o temp.svg
+thermometer diff -4 6
+```
+
+## numberbond
+
+[![CI](https://github.com/eastyou/numberbond/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/numberbond/actions/workflows/ci.yml)
+
+三圆分合图加 2×5 十格阵，空缺位置可选总数、左边或右边。总数不超过 10 时自动附上圆点图，帮助理解整体与部分的关系。
+
+```bash
+numberbond sheet --count 8 --answers -o sheet.html
+numberbond sheet --missing left,right --min 5 --max 10 -o part.html
+numberbond bond 10 --left 3 --missing whole -o bond.svg
+```
+
+## placevalue
+
+[![CI](https://github.com/eastyou/placevalue/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/placevalue/actions/workflows/ci.yml)
+
+把四位数画成千位立方体、百位 10×10 平板、十位长条和个位小方块。看积木写数、按数说积木两种题型，另附数位拆解与合成命令。
+
+```bash
+placevalue sheet --count 8 --answers -o sheet.html
+placevalue blocks 3205 -o blocks.svg
+placevalue split 3205
+```
+
+## coordinate
+
+[![CI](https://github.com/eastyou/coordinate/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/coordinate/actions/workflows/ci.yml)
+
+-10–10 四象限坐标系，1 格 1 单位。读点题自动标注字母，连点题给出坐标清单，内置房子、小鱼、五角星三种图形，答案页附连线结果。
+
+```bash
+coordinate sheet --count 8 --answers -o sheet.html
+coordinate grid -o grid.svg
+coordinate where -3 4
+```
+
+## decimalgrid
+
+[![CI](https://github.com/eastyou/decimalgrid/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/decimalgrid/actions/workflows/ci.yml)
+
+10×10 方格图当作“1”，涂色格数就是百分位。支持涂色读数、按小数涂色、小数与百分数和最简分数互化，百分数转分数自动约分。
+
+```bash
+decimalgrid sheet --count 8 --answers -o sheet.html
+decimalgrid grid 37 -o grid.svg
+decimalgrid convert 0.75
 ```
 
 ---
