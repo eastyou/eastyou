@@ -74,6 +74,12 @@
 | [mapgrid](https://github.com/eastyou/mapgrid) | 经纬网练习纸：可配置经纬范围、坐标题与答案页 | 等距投影、SVG 刻度、半球判断 |
 | [quizbowl](https://github.com/eastyou/quizbowl) | 课堂抢答计分板：离线单文件、多队计分与倒计时 | 单文件 HTML、原生 JS、Web Audio |
 | [patternblocks](https://github.com/eastyou/patternblocks) | 图案积木裁剪片：统一边长的几何积木与挑战卡 | 多边形几何、鞋带公式、页面布局 |
+| [crossword](https://github.com/eastyou/crossword) | 填字游戏生成器：词条 CSV 自动交叉排版 | 交叉放置、网格编号、线索分类 |
+| [nonogram](https://github.com/eastyou/nonogram) | 数织谜题：唯一解校验与行列提示 | 回溯求解、唯一性判定、网格分隔 |
+| [poemcard](https://github.com/eastyou/poemcard) | 古诗竖排卡片：逐字排版的展示卡与书写稿纸 | 竖排布局、SVG 定位、自适应字号 |
+| [cursive](https://github.com/eastyou/cursive) | 英文连笔字帖：四线三格描摹与空白练习行 | 四线格、按词换行、打印排版 |
+| [slidingpuzzle](https://github.com/eastyou/slidingpuzzle) | 数字华容道：可解性判定、可打印棋盘与可玩版 | 逆序数、曼哈顿距离、单文件 HTML |
+| [chessboard](https://github.com/eastyou/chessboard) | 国际象棋棋盘：FEN 局面、棋子裁剪片与练习卡 | FEN 解析、SVG 棋盘、Unicode 棋子 |
 
 ---
 
@@ -777,6 +783,70 @@ quizbowl -o 计分板.html --teams "红队,蓝队,黄队,绿队" --seconds 60
 
 ```bash
 patternblocks -o 积木.html --side 30 --each 6
+```
+
+## crossword
+
+[![CI](https://github.com/eastyou/crossword/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/crossword/actions/workflows/ci.yml)
+
+读入「词条,线索」CSV，自动寻找共享字符把词语交叉排进网格，生成带编号的 A4 填字题、横向与纵向线索列表，并附答案页。
+
+```bash
+crossword demo -o words.csv
+crossword -i words.csv --size 13 --seed 3 -o 填字.html
+```
+
+## nonogram
+
+[![CI](https://github.com/eastyou/nonogram/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/nonogram/actions/workflows/ci.yml)
+
+随机生成黑白格图案，计算行列提示数，并用回溯求解器校验唯一解，输出 A4 数织题面与答案页。
+
+```bash
+nonogram --size 10 --seed 5 -o 数织.html
+```
+
+## poemcard
+
+[![CI](https://github.com/eastyou/poemcard/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/poemcard/actions/workflows/ci.yml)
+
+内置 12 首公版古诗，把诗句逐字排成竖排（自上而下、自右向左）的 A4 展示卡，逐字 SVG 定位，不依赖 CSS 竖排特性，另可输出稿纸格与临写页。
+
+```bash
+poemcard --all -o 古诗卡.html
+poemcard --poem 静夜思 --grid -o 稿纸.html
+```
+
+## cursive
+
+[![CI](https://github.com/eastyou/cursive/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/cursive/actions/workflows/ci.yml)
+
+把单词或句子排成标准四线三格：上伸线、虚线中线、基线、下伸线；支持全描摹、两行描摹其余留白、全空白三种模式。
+
+```bash
+cursive --text "The quick brown fox jumps over the lazy dog." --style fade -o 字帖.html
+cursive --alphabet -o 字母.html
+```
+
+## slidingpuzzle
+
+[![CI](https://github.com/eastyou/slidingpuzzle/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/slidingpuzzle/actions/workflows/ci.yml)
+
+3×3 / 4×4 数字华容道：用逆序数判定可解性，洗牌保证一定可还原；可打印棋盘与编号方块，也能生成离线可玩的单文件 HTML。
+
+```bash
+slidingpuzzle --size 3 --seed 9 -o 华容道.html --playable
+```
+
+## chessboard
+
+[![CI](https://github.com/eastyou/chessboard/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/chessboard/actions/workflows/ci.yml)
+
+把 FEN 局面渲染成 A4 棋盘，带 a-h / 1-8 坐标与棋子字形；另附 24 枚棋子裁剪片和走法练习卡。
+
+```bash
+chessboard -o 棋盘.html
+chessboard --fen "8/8/8/4k3/8/8/4K3/8 w - - 0 1" -o 残局.html
 ```
 
 ---
