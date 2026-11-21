@@ -80,6 +80,12 @@
 | [cursive](https://github.com/eastyou/cursive) | 英文连笔字帖：四线三格描摹与空白练习行 | 四线格、按词换行、打印排版 |
 | [slidingpuzzle](https://github.com/eastyou/slidingpuzzle) | 数字华容道：可解性判定、可打印棋盘与可玩版 | 逆序数、曼哈顿距离、单文件 HTML |
 | [chessboard](https://github.com/eastyou/chessboard) | 国际象棋棋盘：FEN 局面、棋子裁剪片与练习卡 | FEN 解析、SVG 棋盘、Unicode 棋子 |
+| [abacus](https://github.com/eastyou/abacus) | 算盘读数练习纸：数字画成上二下五的算盘 | 珠算模型、SVG 珠子、打印排版 |
+| [spellingbee](https://github.com/eastyou/spellingbee) | 拼词蜂巢：7 字母谜题判词、计分与卡片 | 词表筛选、蜂巢几何、计分规则 |
+| [truthtable](https://github.com/eastyou/truthtable) | 真值表工具：布尔表达式解析与练习纸 | 递归下降、运算符优先级、真值枚举 |
+| [romannum](https://github.com/eastyou/romannum) | 罗马数字转换、标准写法校验与练习纸 | 减法记数、规范校验、题目生成 |
+| [braille](https://github.com/eastyou/braille) | 英文盲文：Grade 1 编码解码与点字卡 | 六点单元、Unicode 盲文、点阵 SVG |
+| [typingdrill](https://github.com/eastyou/typingdrill) | 离线英文打字练习：单文件 HTML | 实时高亮、WPM 统计、零依赖前端 |
 
 ---
 
@@ -847,6 +853,77 @@ slidingpuzzle --size 3 --seed 9 -o 华容道.html --playable
 ```bash
 chessboard -o 棋盘.html
 chessboard --fen "8/8/8/4k3/8/8/4K3/8 w - - 0 1" -o 残局.html
+```
+
+## abacus
+
+[![CI](https://github.com/eastyou/abacus/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/abacus/actions/workflows/ci.yml)
+
+上二下五的中式算盘：每根档位 2 颗上珠、5 颗下珠，靠梁计数。把任意数字画成算盘，或一次生成整页读数练习，答案页可选。
+
+```bash
+abacus svg 3806 --rods 4 --digits -o 3806.svg
+abacus sheet -o 练习.html --count 12 --digits 4 --seed 2026 --answers
+```
+
+## spellingbee
+
+[![CI](https://github.com/eastyou/spellingbee/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/spellingbee/actions/workflows/ci.yml)
+
+七字母拼词蜂巢：中心字母必须使用，单词至少 4 个字母。从词表一次求出全部合法词并按规则计分，全字母词额外加 7 分；卡片带蜂巢、书写行与答案页。
+
+```bash
+spellingbee solve --letters abcdefg --center a --words words.txt
+spellingbee card --letters abcdefg --center a --words words.txt --answers -o 卡片.html
+```
+
+## truthtable
+
+[![CI](https://github.com/eastyou/truthtable/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/truthtable/actions/workflows/ci.yml)
+
+布尔表达式递归下降解析，支持 `not` / `and` / `or` / `xor` / `->` / `<->` 及常见符号写法。枚举真值表、判断重言式与矛盾式，并生成留空待填的 A4 练习纸。
+
+```bash
+truthtable eval "A and (B or not C)"
+truthtable info "A or not A"
+truthtable sheet examples/expressions.txt --answers -o 练习.html
+```
+
+## romannum
+
+[![CI](https://github.com/eastyou/romannum/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/romannum/actions/workflows/ci.yml)
+
+1~3999 双向转换，并严格校验标准写法：`IIII`、`VX`、`IL` 等会被拒绝。练习纸支持「数字→罗马数字」「罗马数字→数字」与混合模式，附常用对照表。
+
+```bash
+romannum to 1997
+romannum from mcmxcvii
+romannum sheet --max 1000 --mode to-roman --answers -o 练习.html
+```
+
+## braille
+
+[![CI](https://github.com/eastyou/braille/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/braille/actions/workflows/ci.yml)
+
+英文一级盲文：26 个字母、数字号、大写号与常用标点双向转换；点阵 SVG 可打印，支持「读盲文写单词」与「看单词点写盲文」两种卡片，另附字母对照表。
+
+```bash
+braille encode "Hello"
+braille decode "⠓⠑⠇⠇⠕"
+braille card words.txt --mode read --answers -o 点字卡.html
+braille chart -o 字母表.html
+```
+
+## typingdrill
+
+[![CI](https://github.com/eastyou/typingdrill/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/typingdrill/actions/workflows/ci.yml)
+
+六套内置课程（基准键、上排键、下排键、数字、句子、代码），也支持自定义文本。生成单文件 HTML，逐字符高亮、实时 WPM 与正确率、限时结算，完全离线。
+
+```bash
+typingdrill lessons
+typingdrill build --lesson home --minutes 3 -o 打字练习.html
+typingdrill build --text examples/custom.txt -o 自定义.html
 ```
 
 ---
