@@ -110,6 +110,12 @@
 | [placevalue](https://github.com/eastyou/placevalue) | 位值积木：千/百/十/个读数与组数 | 数位拆解、积木绘制、打印排版 |
 | [coordinate](https://github.com/eastyou/coordinate) | 四象限坐标：读点、连点成图与答案页 | 象限判定、坐标映射、SVG 网格 |
 | [decimalgrid](https://github.com/eastyou/decimalgrid) | 小数方格图：涂色读数与小数百分数互化 | 百分位模型、约分、SVG 方格 |
+| [multtable](https://github.com/eastyou/multtable) | 乘法口诀表：可打印口诀表、填空练习纸与口诀查询 | 口诀生成、题目去重、SVG |
+| [columnmath](https://github.com/eastyou/columnmath) | 竖式计算练习纸：加减乘的竖式排版与答案页 | 数位对齐、部分积、A4 排版 |
+| [pinyinpad](https://github.com/eastyou/pinyinpad) | 汉语拼音：声母韵母总表、声调标注与练习纸 | 标调规则、音节拆分、打印排版 |
+| [watercycle](https://github.com/eastyou/watercycle) | 水循环：可打印示意图、环节查询与练习纸 | SVG 示意图、环节数据、练习题生成 |
+| [plantcell](https://github.com/eastyou/plantcell) | 细胞结构：标注挂图、结构查询与练习纸 | SVG 标注、动植物差异、练习题 |
+| [wordfamily](https://github.com/eastyou/wordfamily) | 英语词族：卡片、单词查询与补全练习纸 | 词族数据、押韵判断、打印排版 |
 
 ---
 
@@ -1240,6 +1246,78 @@ coordinate where -3 4
 decimalgrid sheet --count 8 --answers -o sheet.html
 decimalgrid grid 37 -o grid.svg
 decimalgrid convert 0.75
+```
+
+## multtable
+
+[![CI](https://github.com/eastyou/multtable/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/multtable/actions/workflows/ci.yml)
+
+1–9 乘法口诀表，可输出完整表格 SVG、口诀卡片和三种填空练习。口诀自动生成“三四十二”“二五一十”“二三得六”，题目去重，答案单独成页。
+
+```bash
+multtable table -o table.svg
+multtable sheet --count 12 --answers -o sheet.html
+multtable rhyme 3 4
+```
+
+## columnmath
+
+[![CI](https://github.com/eastyou/columnmath/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/columnmath/actions/workflows/ci.yml)
+
+把加法、减法、乘法写成规范竖式：数位右对齐、自动画分隔线，两位数乘法自动展开部分积。减法保证结果非负，A4 练习纸附答案页。
+
+```bash
+columnmath sheet --count 8 --answers -o sheet.html
+columnmath sheet --count 12 --ops + --max 99 -o add.html
+columnmath show 45 27
+```
+
+## pinyinpad
+
+[![CI](https://github.com/eastyou/pinyinpad/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/pinyinpad/actions/workflows/ci.yml)
+
+汉语拼音挂图与声调练习：23 个声母、24 个韵母四声表、16 个整体认读音节。实现“有 a 不放过，没 a 找 o、e”的标调规则，支持 ü 系列韵母与音节拆分。
+
+```bash
+pinyinpad chart -o chart.html
+pinyinpad tone ma 3
+pinyinpad split zhāng
+```
+
+## watercycle
+
+[![CI](https://github.com/eastyou/watercycle/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/watercycle/actions/workflows/ci.yml)
+
+水循环示意图：太阳、海洋、云、雨、山脉与循环箭头，蒸发、蒸腾、凝结、降水、径流、汇集六个环节统一编号。配套句子挖空、看描述写名称、看序号说环节三类练习。
+
+```bash
+watercycle poster -o poster.html
+watercycle list
+watercycle sheet --count 6 --answers -o sheet.html
+```
+
+## plantcell
+
+[![CI](https://github.com/eastyou/plantcell/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/plantcell/actions/workflows/ci.yml)
+
+植物细胞标注图：细胞壁、细胞膜、细胞质、细胞核、叶绿体、液泡、线粒体七个结构统一编号，自动区分植物细胞特有与动植物共有，支持只练植物特有结构的练习纸。
+
+```bash
+plantcell poster -o poster.html
+plantcell compare
+plantcell sheet --count 6 --plant-only --answers -o sheet.html
+```
+
+## wordfamily
+
+[![CI](https://github.com/eastyou/wordfamily/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/wordfamily/actions/workflows/ci.yml)
+
+12 个常见英语词族、76 个单词。支持词族卡片、押韵判断，以及补词首（`____at`）和补词尾（`c____`）两种练习题型，可按词族筛选。
+
+```bash
+wordfamily cards -o cards.html
+wordfamily words -at
+wordfamily sheet --count 10 --answers -o sheet.html
 ```
 
 ---
