@@ -140,6 +140,12 @@
 | [functionmachine](https://github.com/eastyou/functionmachine) | 函数机器：输入输出找规律与规则推断 | 规则解析、简单推断、SVG 图示 |
 | [probability](https://github.com/eastyou/probability) | 简单概率：硬币、骰子、摸球与转盘实验 | 分数概率、期望值、SVG 图表 |
 | [recycling](https://github.com/eastyou/recycling) | 垃圾分类：四分类查询、判断与配对练习 | 60 种物品、别名解析、题库 |
+| [bodysystems](https://github.com/eastyou/bodysystems) | 人体八大系统：器官归属、功能查询与练习页 | 55 个器官、别名解析、种子出题 |
+| [worldcapitals](https://github.com/eastyou/worldcapitals) | 世界国家首都：中英查询、大洲分组与练习 | 65 国、同洲干扰项、种子出题 |
+| [homophones](https://github.com/eastyou/homophones) | 英语同音词：同音组、词义辨析与选词填空 | 66 组、答案唯一校验、题库 |
+| [numberpatterns](https://github.com/eastyou/numberpatterns) | 数列规律：七类规律识别与下一项预测 | 优先级识别、二阶差分、练习页 |
+| [firstaid](https://github.com/eastyou/firstaid) | 急救步骤卡：处理步骤、禁忌与判断练习 | 12 个场景、步骤排序、A4 卡片 |
+| [simplemachines](https://github.com/eastyou/simplemachines) | 简单机械：杠杆、滑轮、斜面与轮轴计算 | 力矩平衡、机械效益、SVG 图示 |
 
 ---
 
@@ -1634,6 +1640,78 @@ probability quiz --count 10 --seed 5 -o sheet.html
 recycling info 香蕉皮
 recycling classify 塑料瓶
 recycling match --count 8 --seed 3 -o sheet.html
+```
+
+## bodysystems
+
+[![CI](https://github.com/eastyou/bodysystems/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/bodysystems/actions/workflows/ci.yml)
+
+人体八大系统：消化、呼吸、循环、神经、骨骼、肌肉、泌尿、免疫，共 55 个器官条目，支持系统与器官双向查询、别名匹配，并生成器官归属选择题和系统—功能配对题。
+
+```bash
+bodysystems info 消化系统
+bodysystems organs 呼吸系统
+bodysystems quiz --count 10 --seed 5 -o sheet.html
+```
+
+## worldcapitals
+
+[![CI](https://github.com/eastyou/worldcapitals/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/worldcapitals/actions/workflows/ci.yml)
+
+65 个国家的国家与首都中英对照，按六大洲分组，支持正反向查询与别名归一，并生成同洲干扰项的四选一练习和国家—首都配对页。
+
+```bash
+worldcapitals capital 日本
+worldcapitals list 亚洲
+worldcapitals quiz --count 10 --seed 5 -o sheet.html
+```
+
+## homophones
+
+[![CI](https://github.com/eastyou/homophones/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/homophones/actions/workflows/ci.yml)
+
+66 组英语同音词，每组给出中文释义与挖空例句，支持同音组查询、词义速查，并生成答案唯一的选词填空和词义配对练习。
+
+```bash
+homophones find see
+homophones meaning sea
+homophones quiz --count 10 --seed 5 -o sheet.html
+```
+
+## numberpatterns
+
+[![CI](https://github.com/eastyou/numberpatterns/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/numberpatterns/actions/workflows/ci.yml)
+
+数列规律：识别常数、等差、等比、平方、斐波那契、交替与二阶差分七类规律，按从简到繁的优先级给出下一项，并列出所有可能规律供课堂讨论。
+
+```bash
+numberpatterns next 2 4 6 8
+numberpatterns rule 1 4 9 16
+numberpatterns quiz --count 10 --seed 5 --level hard -o sheet.html
+```
+
+## firstaid
+
+[![CI](https://github.com/eastyou/firstaid/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/firstaid/actions/workflows/ci.yml)
+
+12 个常见意外场景的急救步骤：有序步骤、禁忌、呼叫 120 的时机与免责声明，支持步骤查询、判断与选择练习、排序题和 A4 步骤卡。
+
+```bash
+firstaid info 烫伤
+firstaid card 异物卡喉 -o choking.html
+firstaid quiz --count 10 --seed 5 -o sheet.html
+```
+
+## simplemachines
+
+[![CI](https://github.com/eastyou/simplemachines/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/simplemachines/actions/workflows/ci.yml)
+
+简单机械：杠杆力矩平衡与三类杠杆判定、定/动滑轮组省力比、斜面与轮轴机械效益，附 SVG 示意图与可打印计算练习页。
+
+```bash
+simplemachines lever --effort 20 --effort-arm 2 --load-arm 1
+simplemachines pulley --load 300 --movable 2
+simplemachines incline --load 600 --length 5 --height 1
 ```
 
 ---
