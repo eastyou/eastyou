@@ -86,6 +86,12 @@
 | [romannum](https://github.com/eastyou/romannum) | 罗马数字转换、标准写法校验与练习纸 | 减法记数、规范校验、题目生成 |
 | [braille](https://github.com/eastyou/braille) | 英文盲文：Grade 1 编码解码与点字卡 | 六点单元、Unicode 盲文、点阵 SVG |
 | [typingdrill](https://github.com/eastyou/typingdrill) | 离线英文打字练习：单文件 HTML | 实时高亮、WPM 统计、零依赖前端 |
+| [numberbase](https://github.com/eastyou/numberbase) | 进制转换练习纸：2~36 进制互转与 A4 答案页 | 进制解析、随机出题、打印排版 |
+| [cryptarithm](https://github.com/eastyou/cryptarithm) | 字母算式谜：求解与可打印练习纸 | 按列回溯、进位剪枝、唯一性校验 |
+| [wordroots](https://github.com/eastyou/wordroots) | 英语词根词缀卡片与词义小测 | 词缀数据、干扰项生成、卡片排版 |
+| [solarscale](https://github.com/eastyou/solarscale) | 太阳系比例海报：真实比例的天体与距离 | 比例换算、SVG 圆、A4 海报 |
+| [staffnotes](https://github.com/eastyou/staffnotes) | 五线谱识谱卡：音名、频率与加线 | 谱表坐标、十二平均律、SVG 谱线 |
+| [sentencemix](https://github.com/eastyou/sentencemix) | 句子重排练习纸：中英词卡打乱 | 分词、确定性打乱、打印排版 |
 
 ---
 
@@ -924,6 +930,80 @@ braille chart -o 字母表.html
 typingdrill lessons
 typingdrill build --lesson home --minutes 3 -o 打字练习.html
 typingdrill build --text examples/custom.txt -o 自定义.html
+```
+
+## numberbase
+
+[![CI](https://github.com/eastyou/numberbase/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/numberbase/actions/workflows/ci.yml)
+
+二进制、八进制、十进制、十六进制之间的互转练习：支持 2~36 任意进制，同页题目不重复，`--answers` 生成独立答案页。解析会指出具体是哪个字符不合法。
+
+```bash
+numberbase convert 255 --to 16
+numberbase convert ff --from 16 --to 2
+numberbase sheet --count 20 --from 10 --to 2 --seed 7 --answers -o worksheet.html
+```
+
+## cryptarithm
+
+[![CI](https://github.com/eastyou/cryptarithm/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/cryptarithm/actions/workflows/ci.yml)
+
+字母算式谜：相同字母代表相同数字，不同字母代表不同数字。按列从右向左回溯并剪掉不可能的进位，常见题目毫秒级出解；内置 6 道经典题，可生成练习纸与答案页。
+
+```bash
+cryptarithm solve "SEND + MORE = MONEY"
+cryptarithm solve "TWO + TWO = FOUR" --all
+cryptarithm sheet --count 4 --seed 3 --answers -o puzzles.html
+```
+
+## wordroots
+
+[![CI](https://github.com/eastyou/wordroots/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/wordroots/actions/workflows/ci.yml)
+
+36 条常用前缀、词根与后缀，支持按词条、释义、例词搜索；可生成两栏 A4 卡片，或带干扰项的词义小测。干扰项优先取自同一类型，答案页单独分页。
+
+```bash
+wordroots list --kind prefix
+wordroots find tele
+wordroots cards --count 12 --seed 3 -o cards.html
+wordroots quiz --count 10 --seed 3 --answers -o quiz.html
+```
+
+## solarscale
+
+[![CI](https://github.com/eastyou/solarscale/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/solarscale/actions/workflows/ci.yml)
+
+太阳与八大行星按真实比例画成圆，同时换算「如果距离也按同一比例摆放，需要多长的纸」。按 1 毫米 = 8000 千米，太阳能装进 A4，而海王星要放到 560 米外。
+
+```bash
+solarscale poster --km-per-mm 8000 -o poster.html
+solarscale poster --fit Sun --width 180 -o sun.html
+solarscale table --km-per-mm 8000
+solarscale info Earth
+```
+
+## staffnotes
+
+[![CI](https://github.com/eastyou/staffnotes/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/staffnotes/actions/workflows/ci.yml)
+
+随机抽取音名画成五线谱，生成 A4 识谱卡。支持高低音谱号、自定义音域、加线计算与十二平均律频率，答案可单独打印。
+
+```bash
+staffnotes sheet --count 8 --clef treble --seed 3 --answers -o sheet.html
+staffnotes list --clef bass
+staffnotes note C4
+```
+
+## sentencemix
+
+[![CI](https://github.com/eastyou/sentencemix/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/sentencemix/actions/workflows/ci.yml)
+
+把英文单词或中文汉字打乱成词卡，生成语序练习纸。打乱结果一定与原句不同，同一个种子可复现；支持文本文件一行一句，自动跳过空行与注释。
+
+```bash
+sentencemix sheet --count 6 --seed 3 --answers -o sheet.html
+sentencemix sheet -i sentences.txt --answers
+sentencemix mix "The cat sleeps on the sofa." --seed 1
 ```
 
 ---
