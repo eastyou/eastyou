@@ -98,6 +98,12 @@
 | [noteduration](https://github.com/eastyou/noteduration) | 音符时值与小节补全练习 | 拍号换算、附点音符、SVG 符头 |
 | [nets](https://github.com/eastyou/nets) | 长方体展开图：表面积、体积与折叠图 | 六面布局、尺寸校验、SVG 排版 |
 | [symmetry](https://github.com/eastyou/symmetry) | 轴对称图形补全练习：四种对称轴 | 网格镜像、对称轴判定、打印排版 |
+| [solarterms](https://github.com/eastyou/solarterms) | 二十四节气：太阳黄经推算日期、季节查询与年历练习纸 | 天文算法、日期推算、打印排版 |
+| [idiomchain](https://github.com/eastyou/idiomchain) | 成语接龙：词库查询、接龙生成与练习纸 | 图搜索、回溯、打印排版 |
+| [colorwheel](https://github.com/eastyou/colorwheel) | 色相环：互补、邻近、三角配色与练习纸 | HSL 换算、SVG 扇形、打印排版 |
+| [rulerread](https://github.com/eastyou/rulerread) | 厘米尺读数：零刻度与非零起点练习纸 | SVG 刻度、长度换算、打印排版 |
+| [change](https://github.com/eastyou/change) | 购物找零：总价、付款、找零与硬币图 | 整数分运算、贪心拆分、SVG |
+| [venn](https://github.com/eastyou/venn) | 韦恩图：二/三集合交并差与练习纸 | 集合运算、区域枚举、SVG 三圆 |
 
 ---
 
@@ -1082,6 +1088,80 @@ nets sheet --count 8 --seed 3 --answers -o sheet.html
 symmetry axes "0,0 0,2 1,1" --size 3
 symmetry complete "0,0" --size 4 --axis vertical
 symmetry sheet --count 8 --seed 3 --answers -o sheet.html
+```
+
+## solarterms
+
+[![CI](https://github.com/eastyou/solarterms/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/solarterms/actions/workflows/ci.yml)
+
+按太阳视黄经每 15° 推算二十四节气日期，支持 1900–2100 年。可查询季节、下一个节气与两个节气之间的天数，并生成四季节气年历和带答案的练习纸。
+
+```bash
+solarterms year 2026
+solarterms term 2026 立春 --to 春分
+solarterms calendar --year 2026 -o calendar.html
+solarterms sheet --count 12 --seed 3 --answers -o sheet.html
+```
+
+## idiomchain
+
+[![CI](https://github.com/eastyou/idiomchain/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/idiomchain/actions/workflows/ci.yml)
+
+内置 224 条常用成语与释义，按首尾字接龙。可从任意成语随机生成 2–8 个成语的接龙，校验首尾相接与重复，按首字查词，并生成带答案的 A4 练习纸。
+
+```bash
+idiomchain chain 一心一意 --length 5 --seed 7
+idiomchain info 一心一意
+idiomchain find 一 --limit 10
+idiomchain sheet --count 12 --seed 3 --answers -o sheet.html
+```
+
+## colorwheel
+
+[![CI](https://github.com/eastyou/colorwheel/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/colorwheel/actions/workflows/ci.yml)
+
+12 色与 24 色两套色相环，红色在正上方顺时针排列。自动计算互补色、邻近色与三角配色，生成含 SVG 色环与配色关系表的页面，以及认色、互补、邻近、三角四类练习纸。
+
+```bash
+colorwheel wheel --size 24 -o wheel.html
+colorwheel color 红
+colorwheel sheet --count 12 --seed 3 --answers -o sheet.html
+```
+
+## rulerread
+
+[![CI](https://github.com/eastyou/rulerread/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/rulerread/actions/workflows/ci.yml)
+
+按真实比例画出 0–10 厘米刻度尺，用色块标出物体，练习零刻度与非零起点两种读数。答案统一换算成毫米比较，支持厘米、毫米、厘米 + 毫米多种写法。
+
+```bash
+rulerread length 2.5 7.5
+rulerread length 2 9 --svg
+rulerread sheet --count 12 --seed 3 --answers -o sheet.html
+```
+
+## change
+
+[![CI](https://github.com/eastyou/change/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/change/actions/workflows/ci.yml)
+
+20 件文具商品的购物找零题，金额以整数分存储。付款从 5/10/20/50/100 元中选取，找零自动拆成纸币与硬币，答案页附 SVG 示意图。
+
+```bash
+change change 12.5 20
+change catalog
+change sheet --count 12 --seed 3 --answers -o sheet.html
+```
+
+## venn
+
+[![CI](https://github.com/eastyou/venn/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/venn/actions/workflows/ci.yml)
+
+全集 1–30，内置倍数、大小比较、个位数字等 8 条集合规则。支持 2 圆与 3 圆韦恩图，生成只在集合中、交集、并集、差集四类题目，答案按集合比较且顺序无关。
+
+```bash
+venn rules
+venn sheet --count 12 --size 3 --seed 3 --answers -o sheet.html
+venn sheet --count 10 --size 2 --kinds union,difference -o two-sets.html
 ```
 
 ---
