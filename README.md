@@ -62,6 +62,12 @@
 | [metronome](https://github.com/eastyou/metronome) | 课堂节拍器：离线单文件，重拍高亮与倒计时 | Web Audio、状态机、响应式 |
 | [morsecode](https://github.com/eastyou/morsecode) | 摩尔斯电码：命令行编解码与可打印练习卡 | 编码表、双向转换、打印排版 |
 | [exitticket](https://github.com/eastyou/exitticket) | 课堂出门条：五种模板的 A4 四联反馈卡 | 模板注册表、裁切线、分页 |
+| [starwheel](https://github.com/eastyou/starwheel) | 旋转星图：按纬度生成可裁剪组装的 A4 星图 | 极射投影、亮星星表、打印组装 |
+| [moonphase](https://github.com/eastyou/moonphase) | 月相日历：月龄、月相图标与四相时刻 | 朔望周期、SVG 月相、日历排版 |
+| [sundial](https://github.com/eastyou/sundial) | 日晷制作卡：按纬度计算时刻线的模板 | 日晷公式、半球镜像、模板排版 |
+| [unitcircle](https://github.com/eastyou/unitcircle) | 单位圆转盘：三角函数值盘与对照表 | 弧度换算、三角函数、可剪指针 |
+| [pixelgrid](https://github.com/eastyou/pixelgrid) | 像素画网格：坐标编号与按坐标涂色 | 行列坐标、图案缩放、颜色图例 |
+| [storyboard](https://github.com/eastyou/storyboard) | 分镜纸：定格动画与短片分镜模板 | 分镜分页、画幅比例、通栏布局 |
 
 ---
 
@@ -642,6 +648,66 @@ morsecode --card --count 12 --seed 42 -o 摩尔斯练习卡.html
 
 ```bash
 exitticket --template 321 --copies 4 -o 课堂出门条.html
+```
+
+## starwheel
+
+[![CI](https://github.com/eastyou/starwheel/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/starwheel/actions/workflows/ci.yml)
+
+旋转星图：内置 68 颗亮星，用极射赤面投影绘制星盘，再按纬度生成遮罩页。剪下两页、中心对齐、按月份和时刻转动，就能看到当夜星空；另附当夜可见亮星表。
+
+```bash
+starwheel --latitude 31.2 --month 3 --hour 21 -o 旋转星图.html
+```
+
+## moonphase
+
+[![CI](https://github.com/eastyou/moonphase/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/moonphase/actions/workflows/ci.yml)
+
+月相日历：计算整月每天月龄，用双圆遮挡绘制月相图标，标注新月与满月，并列出四个主要月相时刻（UTC）。适合天文课和自然观察记录。
+
+```bash
+moonphase --year 2026 --month 11 -o 月相日历.html
+```
+
+## sundial
+
+[![CI](https://github.com/eastyou/sundial/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/sundial/actions/workflows/ci.yml)
+
+日晷制作卡：按所在地纬度计算水平日晷的时刻线，输出晷面盘、晷针模板和校准说明三页。南纬会自动镜像，附各时刻线角度表。
+
+```bash
+sundial --latitude 31.2 -o 日晷制作卡.html
+```
+
+## unitcircle
+
+[![CI](https://github.com/eastyou/unitcircle/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/unitcircle/actions/workflows/ci.yml)
+
+单位圆转盘：把指定角度画在单位圆上，标注坐标、角度与弧度，附可剪指针、角度条和三角函数值表。90°与 270° 的 tan 显示「不存在」。
+
+```bash
+unitcircle --angles 0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330 -o 单位圆转盘.html
+```
+
+## pixelgrid
+
+[![CI](https://github.com/eastyou/pixelgrid/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/pixelgrid/actions/workflows/ci.yml)
+
+像素画网格：生成带 A~Z、AA… 列标与行号的坐标网格，附颜色编号示例和图例。学生按坐标涂色，同时练习坐标定位与颜色编码。
+
+```bash
+pixelgrid --width 16 --height 16 --pattern heart -o 像素画网格.html
+```
+
+## storyboard
+
+[![CI](https://github.com/eastyou/storyboard/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/storyboard/actions/workflows/ci.yml)
+
+分镜纸：为定格动画和短片准备的分镜模板，每格含 4:3 或 16:9 画面框、画面说明、台词音效和时长。奇数格时最后一格通栏，画面与填写区并排。
+
+```bash
+storyboard --frames 6 --per-page 3 --ratio 4:3 -o 分镜纸.html
 ```
 
 ---
