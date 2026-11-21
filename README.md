@@ -53,6 +53,9 @@
 | [homeworklog](https://github.com/eastyou/homeworklog) | 作业收缴表：学生名单与作业项目生成 A4 登记表 | 任务解析、连续编号、自动分页 |
 | [parentlog](https://github.com/eastyou/parentlog) | 家校沟通记录：CSV 生成记录表，支持学生筛选与方式汇总 | 日期校验、精确筛选、统计分页 |
 | [errorbook](https://github.com/eastyou/errorbook) | 错题整理册：错题 CSV 生成 A4 卡片与复习打卡页 | 科目筛选、卡片分页、打印排版 |
+| [tangram](https://github.com/eastyou/tangram) | 七巧板活动包：精确裁剪图与拼搭挑战卡 | 多边形几何、面积守恒、SVG 排版 |
+| [spirodraw](https://github.com/eastyou/spirodraw) | 万花尺描摹画册：参数方程生成内摆线画册 | 闭合周期、视觉去重、SVG 曲线 |
+| [storydice](https://github.com/eastyou/storydice) | 故事骰子：四类故事要素的可打印折叠骰子 | 立方展开图、可复现随机、打印折叠 |
 
 ---
 
@@ -541,6 +544,36 @@ parentlog -i 沟通记录.csv --student 张三 -o 家校沟通记录.html
 
 ```bash
 errorbook -i 错题.csv --subject 数学 -o 数学错题册.html
+```
+
+## tangram
+
+[![CI](https://github.com/eastyou/tangram/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/tangram/actions/workflows/ci.yml)
+
+七巧板活动包：输出按真实毫米尺寸绘制的裁剪页与文字挑战卡。七块图块面积严格等于拼好的正方形，虚线裁剪、实线轮廓，每块标注名称和面积占比；挑战卡只给题目与提示，不泄露答案。
+
+```bash
+tangram --size 120 --copies 4 --challenges 4 -o 七巧板活动包.html
+```
+
+## spirodraw
+
+[![CI](https://github.com/eastyou/spirodraw/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/spirodraw/actions/workflows/ci.yml)
+
+万花尺描摹画册：用内摆线参数方程生成曲线，自动计算闭合圈数并挑选形状差异明显的参数组合。每条曲线附 R/r/d 参数表，最后一页说明如何用真实万花尺复现。
+
+```bash
+spirodraw --curves 6 --seed 42 -o 万花尺画册.html
+```
+
+## storydice
+
+[![CI](https://github.com/eastyou/storydice/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/storydice/actions/workflows/ci.yml)
+
+故事骰子：从内置角色、地点、冲突、转折四类词库生成可打印的十字展开图，带裁剪线、折线和粘贴边。剪下折好即可投掷，四颗骰子组合成一个故事开头，同一种子结果可复现。
+
+```bash
+storydice --sets 2 --seed 42 -o 故事骰子.html
 ```
 
 ---
