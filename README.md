@@ -146,6 +146,12 @@
 | [numberpatterns](https://github.com/eastyou/numberpatterns) | 数列规律：七类规律识别与下一项预测 | 优先级识别、二阶差分、练习页 |
 | [firstaid](https://github.com/eastyou/firstaid) | 急救步骤卡：处理步骤、禁忌与判断练习 | 12 个场景、步骤排序、A4 卡片 |
 | [simplemachines](https://github.com/eastyou/simplemachines) | 简单机械：杠杆、滑轮、斜面与轮轴计算 | 力矩平衡、机械效益、SVG 图示 |
+| [animalclassification](https://github.com/eastyou/animalclassification) | 动物分类：脊椎五类与无脊椎类群查询练习 | 87 种动物、分类树、种子出题 |
+| [rocks](https://github.com/eastyou/rocks) | 岩石分类：三大类岩石查询、鉴别与循环图 | 33 种岩石、矿物推断、SVG 循环 |
+| [magnets](https://github.com/eastyou/magnets) | 磁铁与磁场：磁极作用、材料磁性判断 | 40 种材料、磁场线 SVG、题库 |
+| [dynasties](https://github.com/eastyou/dynasties) | 中国朝代：年代、都城与时间轴排序练习 | 19 个朝代、年代比例、排序题 |
+| [buoyancy](https://github.com/eastyou/buoyancy) | 浮力：阿基米德原理与浮沉判断 | 浮力计算、密度比较、SVG 示意 |
+| [phonics](https://github.com/eastyou/phonics) | 自然拼读：字母组合发音规则与练习页 | 56 条规则、280 词、最长匹配 |
 
 ---
 
@@ -1712,6 +1718,78 @@ firstaid quiz --count 10 --seed 5 -o sheet.html
 simplemachines lever --effort 20 --effort-arm 2 --load-arm 1
 simplemachines pulley --load 300 --movable 2
 simplemachines incline --load 600 --length 5 --height 1
+```
+
+## animalclassification
+
+[![CI](https://github.com/eastyou/animalclassification/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/animalclassification/actions/workflows/ci.yml)
+
+动物分类：脊椎动物鱼类、两栖类、爬行类、鸟类、哺乳类五类，加上昆虫、蛛形、甲壳、软体、环节、棘皮六个无脊椎类群，共 87 种动物，支持按类别浏览与名称别名查询，并生成类别归属选择题和配对题。
+
+```bash
+animalclassification info 鲸
+animalclassification list 鸟类
+animalclassification quiz --count 10 --seed 5 -o sheet.html
+```
+
+## rocks
+
+[![CI](https://github.com/eastyou/rocks/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/rocks/actions/workflows/ci.yml)
+
+33 种岩石按岩浆岩、沉积岩、变质岩三大类整理，记录形成方式、主要矿物、典型特征与用途，附岩石循环 SVG 图，并生成分类题与「看矿物特征猜岩石」鉴别题。
+
+```bash
+rocks info 花岗岩
+rocks list 沉积岩
+rocks identify --count 8 --seed 3 -o sheet.html
+```
+
+## magnets
+
+[![CI](https://github.com/eastyou/magnets/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/magnets/actions/workflows/ci.yml)
+
+磁铁与磁场：同极排斥、异极吸引的磁极判断，40 种材料按铁磁性、顺磁性、抗磁性分类，六种常见磁铁的用途，配条形磁铁磁感线 SVG 与可打印练习页。
+
+```bash
+magnets poles N S
+magnets material 铜
+magnets quiz --count 10 --seed 5 -o sheet.html
+```
+
+## dynasties
+
+[![CI](https://github.com/eastyou/dynasties/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/dynasties/actions/workflows/ci.yml)
+
+中国 19 个朝代与时期：起止年代、都城、开国君主与代表成就，支持按年份反查朝代，按真实年代比例绘制时间轴，并生成年代、都城选择题与朝代排序题。
+
+```bash
+dynasties info 唐
+dynasties year 1000
+dynasties ordering --count 8 --seed 3 -o sheet.html
+```
+
+## buoyancy
+
+[![CI](https://github.com/eastyou/buoyancy/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/buoyancy/actions/workflows/ci.yml)
+
+浮力：按阿基米德原理计算浮力与视重，比较物体与液体密度判断上浮、悬浮、下沉，内置 8 种液体与 12 种常见物体的密度数据，附浮沉示意图与计算练习页。
+
+```bash
+buoyancy force --volume 0.002 --liquid 水
+buoyancy predict --object 木块 --liquid 水
+buoyancy quiz --count 10 --seed 5 -o sheet.html
+```
+
+## phonics
+
+[![CI](https://github.com/eastyou/phonics/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/phonics/actions/workflows/ci.yml)
+
+自然拼读：56 条字母组合规则覆盖短元音、magic e 长元音、元音组合、辅音组合、辅音连缀与 r 控制元音，280 个单词按最长匹配归组，生成规则表、大字卡片与选词练习页。
+
+```bash
+phonics word cake
+phonics words sh
+phonics quiz --count 10 --seed 5 -o sheet.html
 ```
 
 ---
