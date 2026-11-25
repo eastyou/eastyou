@@ -152,6 +152,12 @@
 | [dynasties](https://github.com/eastyou/dynasties) | 中国朝代：年代、都城与时间轴排序练习 | 19 个朝代、年代比例、排序题 |
 | [buoyancy](https://github.com/eastyou/buoyancy) | 浮力：阿基米德原理与浮沉判断 | 浮力计算、密度比较、SVG 示意 |
 | [phonics](https://github.com/eastyou/phonics) | 自然拼读：字母组合发音规则与练习页 | 56 条规则、280 词、最长匹配 |
+| [lightlab](https://github.com/eastyou/lightlab) | 光现象：反射、平面镜成像、折射与全反射计算 | 斯涅尔定律、临界角、SVG 光路 |
+| [soundwave](https://github.com/eastyou/soundwave) | 声音三要素：音调、响度分贝与音色谐波 | 十二平均律、对数分贝、波形采样 |
+| [inventions](https://github.com/eastyou/inventions) | 重要发明年表：查询统计、时间轴与配对练习 | 31 条数据、年代比例、种子出题 |
+| [earthlayers](https://github.com/eastyou/earthlayers) | 地球圈层：深度定位、厚度比例与剖面图 | 分层数据、边界判定、SVG 同心圆 |
+| [chartread](https://github.com/eastyou/chartread) | 统计图读图：柱状/折线/扇形与自动出题 | SVG 图表、占比计算、答案生成 |
+| [wordproblems](https://github.com/eastyou/wordproblems) | 小学应用题：一步/两步题与 A4 练习纸 | 可复现随机、整除约束、安全表达式 |
 
 ---
 
@@ -1790,6 +1796,82 @@ buoyancy quiz --count 10 --seed 5 -o sheet.html
 phonics word cake
 phonics words sh
 phonics quiz --count 10 --seed 5 -o sheet.html
+```
+
+## lightlab
+
+[![CI](https://github.com/eastyou/lightlab/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/lightlab/actions/workflows/ci.yml)
+
+光现象：用斯涅尔定律计算反射角与折射角，判断临界角与全反射，核对平面镜成像的像距与像高，生成 SVG 光路图和十题一份的练习纸，答案折叠在页面末尾。
+
+```bash
+lightlab reflect --angle 30
+lightlab refract --angle 40 --n1 1.0 --n2 1.5
+lightlab svg --kind reflect --angle 35 --out light.svg
+lightlab worksheet --count 10 --seed 5 --out sheet.html
+```
+
+## soundwave
+
+[![CI](https://github.com/eastyou/soundwave/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/soundwave/actions/workflows/ci.yml)
+
+声音三要素：频率换算音名与音程，振幅比与分贝互转，解析谐波组成并计算基频能量占比，采样绘制两周期波形 SVG，配套填空与判断题。
+
+```bash
+soundwave pitch --freq 440
+soundwave loudness --ratio 10
+soundwave timbre --harmonics "1:1,2:0.5,3:0.25" --out wave.svg
+soundwave worksheet --count 8 --seed 5 --out sheet.html
+```
+
+## inventions
+
+[![CI](https://github.com/eastyou/inventions/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/inventions/actions/workflows/ci.yml)
+
+重要发明年表：内置 31 条发明数据，支持按领域、年份区间筛选与关键词搜索，按世纪和领域统计，生成按年代比例排布的 SVG 时间轴，并随机出配对、排序与世纪填空题。
+
+```bash
+inventions list --field 通信
+inventions search 电话
+inventions timeline --from 1700 --to 2000 --out timeline.svg
+inventions quiz --count 8 --seed 5 --out quiz.html
+```
+
+## earthlayers
+
+[![CI](https://github.com/eastyou/earthlayers/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/earthlayers/actions/workflows/ci.yml)
+
+地球圈层：地壳、上地幔、下地幔、外核、内核五层数据，输入深度即可定位圈层，计算厚度、占半径比例与相邻层倍数，生成同心圆剖面 SVG 和判层、比厚度、算占比练习纸。
+
+```bash
+earthlayers info
+earthlayers at --depth 3000
+earthlayers thickness --layer 外核
+earthlayers svg --out layers.svg
+```
+
+## chartread
+
+[![CI](https://github.com/eastyou/chartread/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/chartread/actions/workflows/ci.yml)
+
+统计图读图：把「语文:88,数学:95,英语:79」这样的数据画成柱状、折线或扇形 SVG，自动算出总和、平均、极差与占比，并随机出最值、差值、百分比、趋势等读图题，答案附计算式。
+
+```bash
+chartread chart --type bar --data "语文:88,数学:95,英语:79" --out chart.svg
+chartread quiz --type pie --data "语文:88,数学:95,英语:79" --count 8 --seed 5 --out quiz.html
+chartread summary --data "语文:88,数学:95,英语:79"
+```
+
+## wordproblems
+
+[![CI](https://github.com/eastyou/wordproblems/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/wordproblems/actions/workflows/ci.yml)
+
+小学应用题：可从加减乘除模板生成一步题，也能组合成两步题，保证结果非负、除法整除，同页题干不重复；可输出 A4 练习纸与独立答案页，并安全校验算式答案。
+
+```bash
+wordproblems gen --count 10 --seed 42 --steps mixed
+wordproblems sheet --count 12 --seed 7 --out problems.html
+wordproblems check --expr "3*4+2" --answer 14
 ```
 
 ---
