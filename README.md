@@ -164,6 +164,12 @@
 | [statstools](https://github.com/eastyou/statstools) | 统计量：平均数/中位数/众数/极差/方差与出题 | 总体与样本方差、众数集合、种子出题 |
 | [foodlabel](https://github.com/eastyou/foodlabel) | 营养成分表：每份换算、NRV 占比与能量分级 | 单位换算、占比计算、标签对比 |
 | [rivers](https://github.com/eastyou/rivers) | 中国河流：长度/发源地/注入海域/流经省份查询 | 15 条数据、排序对比、SVG 条形图 |
+| [phases](https://github.com/eastyou/phases) | 物态变化：六种变化方向、吸放热与晶体熔化曲线 | 状态判定、SVG 折线、种子出题 |
+| [contour](https://github.com/eastyou/contour) | 等高线地形图：网格绘制、地形部位与坡度判读 | marching squares、坡度计算、SVG |
+| [poemform](https://github.com/eastyou/poemform) | 古诗词格律：平仄标注、押韵识别与诗体判断 | 声调映射、韵部归并、模板生成 |
+| [unitprice](https://github.com/eastyou/unitprice) | 单价与折扣：三量互算、打折满减与最优购买方案 | 整数分运算、方案比较、种子出题 |
+| [datatable](https://github.com/eastyou/datatable) | 数据表统计：行/列合计、占比、排序与条件筛选 | CSV 解析、统计与筛选、打印排版 |
+| [pressure](https://github.com/eastyou/pressure) | 压强：固体与液体压强、大气压估算与比较 | p=F/S、p=ρgh、教学近似公式 |
 
 ---
 
@@ -1950,6 +1956,84 @@ foodlabel worksheet --count 8 --seed 2026 --out label.html
 rivers info --name 长江
 rivers compare --names 长江,黄河
 rivers svg --names 长江,黄河,珠江 --out rivers.svg
+```
+
+## phases
+
+[![CI](https://github.com/eastyou/phases/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/phases/actions/workflows/ci.yml)
+
+查清熔化、凝固、汽化、液化、升华、凝华六种物态变化的方向与吸放热，判断名称或「固→液」写法，生成晶体熔化曲线 SVG、可复现的判断题与 A4 练习纸。
+
+```bash
+phases list
+phases check "固→液"
+phases curve --melting-point 0 --start -20 --end 20 -o curve.svg
+phases sheet --count 10 --seed 1 -o sheet.html --answers
+```
+
+## contour
+
+[![CI](https://github.com/eastyou/contour/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/contour/actions/workflows/ci.yml)
+
+读取高程网格 CSV，用 marching squares 绘制带海拔标注的等高线 SVG，判读山顶、鞍部、山脊、山谷与坡度分级，并生成读图练习纸。
+
+```bash
+contour grid -o grid.csv --size 11 --seed 7
+contour draw grid.csv -o contour.svg --interval 20 --labels
+contour feature grid.csv --x 3 --y 4
+contour sheet -o sheet.html --count 6 --answers
+```
+
+## poemform
+
+[![CI](https://github.com/eastyou/poemform/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/poemform/actions/workflows/ci.yml)
+
+按现代普通话做教学简化的平仄标注，判断五言与七言、识别句末押韵、输出标准平仄模板，内置八首公有领域古诗并可生成练习纸。
+
+```bash
+poemform check "床前明月光"
+poemform rhyme 光 霜 乡
+poemform template 七言绝句
+poemform sheet --count 8 --seed 2 -o sheet.html --answers
+```
+
+## unitprice
+
+[![CI](https://github.com/eastyou/unitprice/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/unitprice/actions/workflows/ci.yml)
+
+在总价、单价、数量中任给两项求第三项，计算打折与满减后的实付金额，比较多种包装的单位价格找出最省方案，并生成应用题练习纸。
+
+```bash
+unitprice calc --total 24 --price 3.5
+unitprice discount --price 200 --rate 8.5 --threshold 150 --minus 20
+unitprice best --qty 12 --offer "小包:6:3" --offer "大包:20:10"
+unitprice sheet --count 10 --seed 1 -o sheet.html --answers
+```
+
+## datatable
+
+[![CI](https://github.com/eastyou/datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/datatable/actions/workflows/ci.yml)
+
+读取 CSV 数据表，计算每列合计、均值、最大最小与每行合计、占比，支持按列排序和六种条件筛选，非数值单元格可跳过或严格报错。
+
+```bash
+datatable stats data.csv
+datatable sort data.csv --by 数量 --desc
+datatable filter data.csv --where "数量>=10"
+datatable sheet --count 6 --seed 1 -o sheet.html --answers
+```
+
+## pressure
+
+[![CI](https://github.com/eastyou/pressure/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/pressure/actions/workflows/ci.yml)
+
+计算固体压强 p=F/S 与液体压强 p=ρgh，支持面积单位换算与质量求力，估算海拔对应的大气压和沸点，并比较多组压强大小。
+
+```bash
+pressure solid --force 100 --area 0.5
+pressure liquid --density 1000 --depth 2
+pressure air --altitude 1000
+pressure compare --item "砖块:20:0.02" --item "木块:10:0.05"
 ```
 
 ---
