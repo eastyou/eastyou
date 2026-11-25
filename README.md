@@ -158,6 +158,12 @@
 | [earthlayers](https://github.com/eastyou/earthlayers) | 地球圈层：深度定位、厚度比例与剖面图 | 分层数据、边界判定、SVG 同心圆 |
 | [chartread](https://github.com/eastyou/chartread) | 统计图读图：柱状/折线/扇形与自动出题 | SVG 图表、占比计算、答案生成 |
 | [wordproblems](https://github.com/eastyou/wordproblems) | 小学应用题：一步/两步题与 A4 练习纸 | 可复现随机、整除约束、安全表达式 |
+| [circuitlab](https://github.com/eastyou/circuitlab) | 电路计算：串并联、欧姆定律、电功率与电路图 | 数值校验、SVG 电路图、种子出题 |
+| [periodic](https://github.com/eastyou/periodic) | 元素查询：符号/序号/周期族检索与猜谜题 | 30+ 元素数据、分类过滤、种子出题 |
+| [sentencecraft](https://github.com/eastyou/sentencecraft) | 语文句式：把被互转、陈述反问、扩缩句与关联词 | 规则改写、词库匹配、练习纸 |
+| [statstools](https://github.com/eastyou/statstools) | 统计量：平均数/中位数/众数/极差/方差与出题 | 总体与样本方差、众数集合、种子出题 |
+| [foodlabel](https://github.com/eastyou/foodlabel) | 营养成分表：每份换算、NRV 占比与能量分级 | 单位换算、占比计算、标签对比 |
+| [rivers](https://github.com/eastyou/rivers) | 中国河流：长度/发源地/注入海域/流经省份查询 | 15 条数据、排序对比、SVG 条形图 |
 
 ---
 
@@ -1872,6 +1878,78 @@ chartread summary --data "语文:88,数学:95,英语:79"
 wordproblems gen --count 10 --seed 42 --steps mixed
 wordproblems sheet --count 12 --seed 7 --out problems.html
 wordproblems check --expr "3*4+2" --answer 14
+```
+
+## circuitlab
+
+[![CI](https://github.com/eastyou/circuitlab/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/circuitlab/actions/workflows/ci.yml)
+
+初中物理电路计算：串联与并联等效电阻、欧姆定律、电功率与电能，给出电压时还能算出各路电流与分压；可绘制串联/并联电路 SVG，并生成带答案的练习纸。
+
+```bash
+circuitlab series --resistors 10,20,30 --voltage 12
+circuitlab ohm --voltage 12 --resistance 6
+circuitlab worksheet --count 8 --seed 2026 --out circuit.html
+```
+
+## periodic
+
+[![CI](https://github.com/eastyou/periodic/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/periodic/actions/workflows/ci.yml)
+
+内置 30 多个常见元素，支持按符号、原子序数或中文名查询，也能按类别、周期、族组合过滤；猜谜题覆盖“符号猜名称”“名称猜符号”“序号猜元素”，同一 seed 可复现。
+
+```bash
+periodic element --symbol Fe
+periodic search --category 金属 --period 4
+periodic quiz --count 5 --seed 2026
+```
+
+## sentencecraft
+
+[![CI](https://github.com/eastyou/sentencecraft/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/sentencecraft/actions/workflows/ci.yml)
+
+语文句式规则化改写：把字句与被字句互转、陈述句与反问句互转、扩句缩句、关联词填空（因果/转折/条件/递进/并列），规则限制在 README 中写明，避免过度承诺。
+
+```bash
+sentencecraft convert --type bei --text "我把作业写完了。"
+sentencecraft fill --text "___下雨，___比赛取消。"
+sentencecraft worksheet --count 8 --seed 2026 --out sentences.html
+```
+
+## statstools
+
+[![CI](https://github.com/eastyou/statstools/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/statstools/actions/workflows/ci.yml)
+
+一次算出个数、总和、平均数、中位数、众数（可能多个）、极差，以及总体与样本两种方差、标准差；可从数据和文件两种来源读入，出题覆盖五类统计量。
+
+```bash
+statstools describe --data "85,90,78,92,88"
+statstools quiz --count 5 --seed 2026
+statstools worksheet --count 10 --seed 2026 --out stats.html
+```
+
+## foodlabel
+
+[![CI](https://github.com/eastyou/foodlabel/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/foodlabel/actions/workflows/ci.yml)
+
+把营养成分表的“每 100 g”换算成“每份”，同时给出 kJ 与 kcal、五项 NRV 占比与能量密度分级；支持两张标签逐项对比，NRV 参考值明确标注为教学简化数据。
+
+```bash
+foodlabel read --energy 1050 --protein 8 --fat 12 --carbs 45 --sodium 400 --serving 25
+foodlabel compare --a "面包:1050:8:12:45:400" --b "牛奶:270:3:3:5:50"
+foodlabel worksheet --count 8 --seed 2026 --out label.html
+```
+
+## rivers
+
+[![CI](https://github.com/eastyou/rivers/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/rivers/actions/workflows/ci.yml)
+
+内置 15 条中国主要河流，可查长度、流域面积、发源地、注入海域与流经省份，按长度排名、多条对比长度差，并绘制横向条形 SVG 比较图。
+
+```bash
+rivers info --name 长江
+rivers compare --names 长江,黄河
+rivers svg --names 长江,黄河,珠江 --out rivers.svg
 ```
 
 ---
