@@ -170,6 +170,12 @@
 | [unitprice](https://github.com/eastyou/unitprice) | 单价与折扣：三量互算、打折满减与最优购买方案 | 整数分运算、方案比较、种子出题 |
 | [datatable](https://github.com/eastyou/datatable) | 数据表统计：行/列合计、占比、排序与条件筛选 | CSV 解析、统计与筛选、打印排版 |
 | [pressure](https://github.com/eastyou/pressure) | 压强：固体与液体压强、大气压估算与比较 | p=F/S、p=ρgh、教学近似公式 |
+| [heat](https://github.com/eastyou/heat) | 热量：吸放热、燃料热值、热效率与混合终温 | Q=cmΔt、Q=mq、种子出题 |
+| [solution](https://github.com/eastyou/solution) | 溶液：溶质质量分数、稀释加水与溶解度查询 | 质量分数、溶解度表、打印排版 |
+| [bloodtype](https://github.com/eastyou/bloodtype) | ABO 血型遗传：基因型推导、亲子概率与方阵表 | 等概率组合、概率归一、表格对齐 |
+| [microscope](https://github.com/eastyou/microscope) | 显微镜：放大倍数、视野直径与细胞计数 | 反比换算、平方关系、教学近似 |
+| [mapscale](https://github.com/eastyou/mapscale) | 比例尺：图上距离换算、反求比例尺与线段比例尺 | 单位换算、SVG 比例尺、种子出题 |
+| [combinatorics](https://github.com/eastyou/combinatorics) | 排列组合：计数、枚举、反求 n 与练习纸 | 阶乘计数、笛卡尔枚举、反求搜索 |
 
 ---
 
@@ -2034,6 +2040,90 @@ pressure solid --force 100 --area 0.5
 pressure liquid --density 1000 --depth 2
 pressure air --altitude 1000
 pressure compare --item "砖块:20:0.02" --item "木块:10:0.05"
+```
+
+## heat
+
+[![CI](https://github.com/eastyou/heat/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/heat/actions/workflows/ci.yml)
+
+计算物质吸放热的 Q=cmΔt、燃料燃烧放热的 Q=mq、热效率与同种物质混合后的终温，并把四类题型组合成可打印练习纸。
+
+```bash
+heat q --mass 2 --specific 4200 --delta 10
+heat fuel --mass 0.5 --value 46000000
+heat efficiency --useful 84000 --total 100000
+heat mix --m1 1 --t1 80 --m2 2 --t2 20
+heat sheet --count 10 --seed 1 -o sheet.html --answers
+```
+
+## solution
+
+[![CI](https://github.com/eastyou/solution/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/solution/actions/workflows/ci.yml)
+
+在溶质、溶剂与溶液质量之间换算质量分数，由目标浓度求需要补充的水量，并按温度查询四种常见物质的溶解度与最多溶解量。
+
+```bash
+solution mass-fraction --solute 20 --solvent 80
+solution solute --fraction 20 --solution 100
+solution dilute --mass 100 --fraction 20 --target 10
+solution solubility --substance 氯化钠 --temp 20
+solution sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## bloodtype
+
+[![CI](https://github.com/eastyou/bloodtype/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/bloodtype/actions/workflows/ci.yml)
+
+用 AA、AO、BB、BO、AB、OO 六种简化基因型推导 ABO 血型表现型，按等概率计算子女基因型与表现型比例，判断亲子组合是否可能并输出 2×2 方阵表。
+
+```bash
+bloodtype genotype --type A
+bloodtype cross --father A --mother B
+bloodtype check --father A --mother O --child B
+bloodtype punnett --father AO --mother BO
+bloodtype sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## microscope
+
+[![CI](https://github.com/eastyou/microscope/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/microscope/actions/workflows/ci.yml)
+
+由物镜与目镜倍数求总放大倍数，按放大倍数与视野直径成反比换算换镜后的视野，按面积关系估算高倍视野中的细胞数，并把像长还原为实际长度。
+
+```bash
+microscope mag --objective 40 --eyepiece 10
+microscope field --low-mag 10 --low-field 1.8 --high-mag 40
+microscope count --low-mag 10 --low-count 64 --high-mag 40
+microscope length --magnification 400 --image 20
+microscope sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## mapscale
+
+[![CI](https://github.com/eastyou/mapscale/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/mapscale/actions/workflows/ci.yml)
+
+在图上距离、实际距离与比例尺三者之间互算，把 cm、m、km 的换算统一到比例尺下，并生成带刻度与公里标注的线段比例尺 SVG。
+
+```bash
+mapscale calc --map 3.5 --scale 100000
+mapscale scale --map 3.5 --real 3.5
+mapscale bar --scale 50000 --length 4
+mapscale convert --value 2 --from cm --to km --scale 50000
+mapscale sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## combinatorics
+
+[![CI](https://github.com/eastyou/combinatorics/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/combinatorics/actions/workflows/ci.yml)
+
+计算排列数 P(n,k) 与组合数 C(n,k)，用字母元素枚举全部取法，按已知结果反求 n，并生成计数、枚举与反求三类练习纸。
+
+```bash
+combinatorics perm --n 5 --k 2
+combinatorics comb --n 5 --k 2
+combinatorics list --n 3 --k 2 --mode perm
+combinatorics solve --total 66 --k 2 --mode comb
+combinatorics sheet --count 8 --seed 1 -o sheet.html --answers
 ```
 
 ---
