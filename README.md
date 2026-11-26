@@ -182,6 +182,12 @@
 | [seismic](https://github.com/eastyou/seismic) | 地震：P/S 波时差求震中距、走时与能量倍数 | 波速差定位、走时计算、震级能量 |
 | [popstats](https://github.com/eastyou/popstats) | 人口统计：人口密度、三率与人口推算 | 出生死亡率、自然增长、迁移率 |
 | [solidvolume](https://github.com/eastyou/solidvolume) | 立体图形：五种图形体积与表面积 | π 公式、母线勾股、种子出题 |
+| [resistorcode](https://github.com/eastyou/resistorcode) | 电阻色环：四环五环识读与阻值反查 | 颜色表、倍率误差、SVG 练习纸 |
+| [gcdlcm](https://github.com/eastyou/gcdlcm) | 最大公因数与最小公倍数：短除步骤与应用题 | 欧几里得、质因数分解、种子出题 |
+| [inequality](https://github.com/eastyou/inequality) | 一元一次不等式：解题步骤、区间与数轴 | 移项变号、区间表示、SVG 数轴 |
+| [eraconvert](https://github.com/eastyou/eraconvert) | 公元纪年：世纪年代换算与距今年数 | 世纪公式、年代尺、跨公元计算 |
+| [bmihealth](https://github.com/eastyou/bmihealth) | 健康指数：BMI、基础代谢与每日饮水量 | BMI 分级、Mifflin-St Jeor、TDEE |
+| [rhetoric](https://github.com/eastyou/rhetoric) | 语文修辞：八种修辞卡片与判断练习 | 例句库、四选一、打印卡片 |
 
 ---
 
@@ -2214,6 +2220,80 @@ solidvolume cylinder --radius 2 --height 5
 solidvolume cone --radius 2 --height 6
 solidvolume sphere --radius 3
 solidvolume sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## resistorcode
+
+[![CI](https://github.com/eastyou/resistorcode/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/resistorcode/actions/workflows/ci.yml)
+
+四环与五环电阻的色环识读，颜色表内置，支持由阻值反推色环与误差环；可生成带 SVG 电阻的 A4 练习纸和一张色环对照表。
+
+```bash
+resistorcode value --bands red,violet,red,gold
+resistorcode bands --ohms 4700 --tolerance 5 --digits 4
+resistorcode sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## gcdlcm
+
+[![CI](https://github.com/eastyou/gcdlcm/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/gcdlcm/actions/workflows/ci.yml)
+
+求一组数的最大公因数与最小公倍数，给出质因数分解和短除步骤，附带彩带裁剪、地砖铺贴等应用题与可打印练习纸。
+
+```bash
+gcdlcm gcd --numbers 12,18,24
+gcdlcm solve --a 12 --b 18
+gcdlcm word --type gcd --a 12 --b 18
+```
+
+## inequality
+
+[![CI](https://github.com/eastyou/inequality/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/inequality/actions/workflows/ci.yml)
+
+解 `ax + b` 与 `c` 比较的一元一次不等式，输出移项与系数化 1 的步骤；系数为负时说明变号，解集同时给出区间表示与 SVG 数轴。
+
+```bash
+inequality solve --a 2 --b 3 --op gt --c 7
+inequality check --a 2 --b 3 --op gt --c 7 --value 3
+inequality sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## eraconvert
+
+[![CI](https://github.com/eastyou/eraconvert/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/eraconvert/actions/workflows/ci.yml)
+
+公元纪年换算：年份转世纪年代、世纪年代反推年份范围、计算距今年数，并绘制年代尺。公元前年份用负数表示，换算规则在项目 README 中写明。
+
+```bash
+eraconvert century --year 1997
+eraconvert century --year -221
+eraconvert range --century 3 --decade 20 --bc
+eraconvert ago --year -221
+```
+
+## bmihealth
+
+[![CI](https://github.com/eastyou/bmihealth/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/bmihealth/actions/workflows/ci.yml)
+
+按成人标准计算 BMI 与分级，用 Mifflin-St Jeor 公式估算基础代谢，结合活动系数得到每日能量需求，并按体重估算饮水量。
+
+```bash
+bmihealth bmi --weight 65 --height 170
+bmihealth bmr --weight 65 --height 170 --age 30 --sex m
+bmihealth tdee --weight 65 --height 170 --age 30 --sex m --activity moderate
+```
+
+## rhetoric
+
+[![CI](https://github.com/eastyou/rhetoric/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/rhetoric/actions/workflows/ci.yml)
+
+内置比喻、拟人、排比等八种修辞的定义、判断要点与例句，支持四选一练习、正反面卡片与 A4 练习纸。判题只针对内置例句库。
+
+```bash
+rhetoric list
+rhetoric show --type metaphor
+rhetoric quiz --count 10 --seed 1
+rhetoric sheet --count 8 --seed 1 -o sheet.html --answers
 ```
 
 ---
