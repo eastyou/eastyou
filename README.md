@@ -176,6 +176,12 @@
 | [microscope](https://github.com/eastyou/microscope) | 显微镜：放大倍数、视野直径与细胞计数 | 反比换算、平方关系、教学近似 |
 | [mapscale](https://github.com/eastyou/mapscale) | 比例尺：图上距离换算、反求比例尺与线段比例尺 | 单位换算、SVG 比例尺、种子出题 |
 | [combinatorics](https://github.com/eastyou/combinatorics) | 排列组合：计数、枚举、反求 n 与练习纸 | 阶乘计数、笛卡尔枚举、反求搜索 |
+| [velocity](https://github.com/eastyou/velocity) | 速度：速度路程时间互算、平均速度与相遇问题 | v=s/t、单位换算、种子出题 |
+| [molecalc](https://github.com/eastyou/molecalc) | 物质的量：相对分子质量、质量与摩尔换算 | 化学式解析、原子量、质量分数 |
+| [cellcycle](https://github.com/eastyou/cellcycle) | 细胞分裂：细胞数倍增、周期各期与染色体表 | 2^n 倍增、周期拆分、SVG 环形图 |
+| [seismic](https://github.com/eastyou/seismic) | 地震：P/S 波时差求震中距、走时与能量倍数 | 波速差定位、走时计算、震级能量 |
+| [popstats](https://github.com/eastyou/popstats) | 人口统计：人口密度、三率与人口推算 | 出生死亡率、自然增长、迁移率 |
+| [solidvolume](https://github.com/eastyou/solidvolume) | 立体图形：五种图形体积与表面积 | π 公式、母线勾股、种子出题 |
 
 ---
 
@@ -2124,6 +2130,90 @@ combinatorics comb --n 5 --k 2
 combinatorics list --n 3 --k 2 --mode perm
 combinatorics solve --total 66 --k 2 --mode comb
 combinatorics sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## velocity
+
+[![CI](https://github.com/eastyou/velocity/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/velocity/actions/workflows/ci.yml)
+
+已知路程、时间、速度中的任意两个求第三个，按多段「路程:时间」求平均速度，在 m/s 与 km/h 之间换算，并处理相向而行的相遇问题。
+
+```bash
+velocity speed --distance 100 --time 8
+velocity average --segments 100:10,300:20
+velocity convert --value 36 --from km/h --to m/s
+velocity meeting --v1 60 --v2 40 --distance 200
+velocity sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## molecalc
+
+[![CI](https://github.com/eastyou/molecalc/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/molecalc/actions/workflows/ci.yml)
+
+解析化学式并查内置相对原子质量表，求相对分子质量、由物质的量求质量、由质量求物质的量，以及某元素的质量分数；化学式解析严格校验元素符号与下标。
+
+```bash
+molecalc mr --formula H2O
+molecalc mass --formula CO2 --moles 2
+molecalc moles --formula CO2 --mass 44
+molecalc percent --formula H2O --element O
+molecalc sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## cellcycle
+
+[![CI](https://github.com/eastyou/cellcycle/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/cellcycle/actions/workflows/ci.yml)
+
+按有丝分裂的 2^n 关系计算细胞总数，拆解细胞周期中 G1、S、G2、M 各期时长与占比，并列出各时期每个细胞的染色体、染色单体与 DNA 数目。
+
+```bash
+cellcycle count --start 1 --divisions 5
+cellcycle time --cycle 20 --divisions 4
+cellcycle stages --cycle 1200 --g1 600 --s 300 --g2 240
+cellcycle chromosomes --diploid 46
+cellcycle sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## seismic
+
+[![CI](https://github.com/eastyou/seismic/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/seismic/actions/workflows/ci.yml)
+
+用 P 波与 S 波的速度差，由到时差反推震中距，或由震中距求到时差与单波走时，并按震级差换算能量倍数。
+
+```bash
+seismic distance --lag 5
+seismic lag --distance 70
+seismic travel --distance 100 --wave p
+seismic energy --m1 5 --m2 7
+seismic sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## popstats
+
+[![CI](https://github.com/eastyou/popstats/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/popstats/actions/workflows/ci.yml)
+
+计算人口密度、出生率、死亡率、自然增长率与迁移率，并按自然增长率逐年推算未来人口。
+
+```bash
+popstats density --population 1200000 --area 400
+popstats rate --births 120 --deaths 60 --population 10000
+popstats growth --population 10000 --birth-rate 12 --death-rate 6 --years 5
+popstats migration --population 10000 --in 300 --out 200
+popstats sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## solidvolume
+
+[![CI](https://github.com/eastyou/solidvolume/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/solidvolume/actions/workflows/ci.yml)
+
+计算长方体、正方体、圆柱、圆锥与球的体积和表面积，圆锥表面积用勾股定理求母线，结果统一保留两位小数。
+
+```bash
+solidvolume box --length 3 --width 4 --height 5
+solidvolume cylinder --radius 2 --height 5
+solidvolume cone --radius 2 --height 6
+solidvolume sphere --radius 3
+solidvolume sheet --count 8 --seed 1 -o sheet.html --answers
 ```
 
 ---
