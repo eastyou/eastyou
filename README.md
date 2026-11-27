@@ -188,6 +188,12 @@
 | [eraconvert](https://github.com/eastyou/eraconvert) | 公元纪年：世纪年代换算与距今年数 | 世纪公式、年代尺、跨公元计算 |
 | [bmihealth](https://github.com/eastyou/bmihealth) | 健康指数：BMI、基础代谢与每日饮水量 | BMI 分级、Mifflin-St Jeor、TDEE |
 | [rhetoric](https://github.com/eastyou/rhetoric) | 语文修辞：八种修辞卡片与判断练习 | 例句库、四选一、打印卡片 |
+| [similarity](https://github.com/eastyou/similarity) | 相似三角形：对应边求解、相似比缩放与判定 | 比例式、AA/SAS/SSS、SVG 标注 |
+| [tides](https://github.com/eastyou/tides) | 潮汐：月龄判月相与潮汐类型、半日潮时刻推算 | 潮时累计、潮差分级、SVG 示意 |
+| [clouds](https://github.com/eastyou/clouds) | 云的分类：十属云卡片、高度层归类与测验 | 云形图标、四选一、打印卡片 |
+| [climate](https://github.com/eastyou/climate) | 气候类型：月气温降水判类型与典型图表 | 分级判定、SVG 双轴图、练习纸 |
+| [xiehouyu](https://github.com/eastyou/xiehouyu) | 歇后语：内置题库查询、四选一测验与配对 | 题库校验、候选提示、连线配对 |
+| [votecount](https://github.com/eastyou/votecount) | 投票计票：多数制、两轮制、即时决选与波达计分 | CSV 校验、轮次明细、方法对比 |
 
 ---
 
@@ -2294,6 +2300,83 @@ rhetoric list
 rhetoric show --type metaphor
 rhetoric quiz --count 10 --seed 1
 rhetoric sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## similarity
+
+[![CI](https://github.com/eastyou/similarity/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/similarity/actions/workflows/ci.yml)
+
+初中数学相似三角形工具：按比例式求对应边，按相似比缩放三边，支持 AA、SAS、SSS 三种判定并输出判定依据，附带周长比、面积比、体积比查询。练习纸用 SVG 标注三边与角。
+
+```bash
+similarity missing --a 3 --b 4 --a2 6
+similarity judge --sides 3,4,5 --sides2 6,8,10 --mode sss
+similarity sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## tides
+
+[![CI](https://github.com/eastyou/tides/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/tides/actions/workflows/ci.yml)
+
+潮汐教学简化模型（不是航海潮汐表）：按月龄判断月相与潮汐类型（大潮、小潮、平日），按半日潮间隔 6 小时 12.5 分推算连续时刻并正确跨日回绕，计算潮差并分级。附潮汐时刻表、A4 练习纸与日地月位置示意图。
+
+```bash
+tides phase --moon-age 0
+tides times --start 06:00 --count 4
+tides table --moon-age 0 -o table.html
+tides sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## clouds
+
+[![CI](https://github.com/eastyou/clouds/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/clouds/actions/workflows/ci.yml)
+
+十属云分类工具：按高度层（高云、中云、低云、直展云）分组列出，每个云属含拉丁名、高度范围、外形特征、天气指示与识别要点。每个云属配一个确定性 SVG 云形图标，支持四选一测验、正反面卡片与 A4 练习纸。
+
+```bash
+clouds list
+clouds show --name 积云
+clouds quiz --count 10 --seed 1
+clouds sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## climate
+
+[![CI](https://github.com/eastyou/climate/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/climate/actions/workflows/ci.yml)
+
+初中地理气候类型判断：输入 12 个月气温与降水，按温度带、降水型与季节分配逐条命中内置 9 种气候类型，输出判断依据。可为每种气候生成双轴气温曲线与降水柱状图，也可让练习纸自带留空坐标图。
+
+```bash
+climate classify --temps 25,25,26,27,28,28,28,28,28,27,26,25 --precip 260,240,280,300,320,300,260,240,220,200,180,200
+climate describe --type 地中海气候
+climate chart --type 地中海气候 -o chart.html
+climate sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## xiehouyu
+
+[![CI](https://github.com/eastyou/xiehouyu/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/xiehouyu/actions/workflows/ci.yml)
+
+小学语文歇后语工具：内置 50 余条题库（前语、后语、释义、例句），支持按关键字筛选、按前语/完整写法/后语查询并给出相近候选，四选一测验、补全后语、连线配对与选择释义的 A4 练习纸、正反面卡片。只做内置题库的查询与练习。
+
+```bash
+xiehouyu list --keyword 泥
+xiehouyu show --front "泥菩萨过江"
+xiehouyu quiz --count 10 --seed 1
+xiehouyu sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## votecount
+
+[![CI](https://github.com/eastyou/votecount/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/votecount/actions/workflows/ci.yml)
+
+数学与公民：投票计票工具。读取排序选票 CSV，分别用简单多数、两轮制、即时决选与波达计分计票，输出每轮明细与胜者，`compare` 汇总四种规则的结果，方便课堂讨论不同计票规则可能产生不同结果。附 A4 练习纸与计票方法对比演示页。
+
+```bash
+votecount plurality --ballots b.csv
+votecount irv --ballots b.csv
+votecount compare --ballots b.csv
+votecount sheet --count 8 --seed 1 -o sheet.html --answers
 ```
 
 ---
