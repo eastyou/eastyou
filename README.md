@@ -194,6 +194,12 @@
 | [climate](https://github.com/eastyou/climate) | 气候类型：月气温降水判类型与典型图表 | 分级判定、SVG 双轴图、练习纸 |
 | [xiehouyu](https://github.com/eastyou/xiehouyu) | 歇后语：内置题库查询、四选一测验与配对 | 题库校验、候选提示、连线配对 |
 | [votecount](https://github.com/eastyou/votecount) | 投票计票：多数制、两轮制、即时决选与波达计分 | CSV 校验、轮次明细、方法对比 |
+| [daylength](https://github.com/eastyou/daylength) | 昼夜长短：日出日落、昼长夜长与极昼极夜判定 | 太阳赤纬、时角计算、全年曲线 |
+| [fivezones](https://github.com/eastyou/fivezones) | 地球五带：纬度判带、特征查询与分布示意图 | 五带划分、边界归属、SVG 剖面 |
+| [pictograph](https://github.com/eastyou/pictograph) | 象形字：24 个字的字源卡片与猜字测验 | 甲骨文金文、四选一、打印字卡 |
+| [phonetics](https://github.com/eastyou/phonetics) | 国际音标：44 个音标要领、例词与音标卡 | 音标表、口腔示意、四选一 |
+| [circlekit](https://github.com/eastyou/circlekit) | 圆与扇形：周长、面积、弧长与圆环计算 | 公式换算、保留小数、练习纸 |
+| [valence](https://github.com/eastyou/valence) | 化合价：价态查询、交叉法写化学式与读名 | 化合价表、最简约分、公式解析 |
 
 ---
 
@@ -2377,6 +2383,84 @@ votecount plurality --ballots b.csv
 votecount irv --ballots b.csv
 votecount compare --ballots b.csv
 votecount sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## daylength
+
+[![CI](https://github.com/eastyou/daylength/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/daylength/actions/workflows/ci.yml)
+
+初中地理昼夜长短工具：输入日期与纬度，用简化天文模型（太阳赤纬余弦近似）计算日出日落、昼长夜长，正确判定极昼极夜。支持四节气对照、多日期对比、全年昼长变化曲线（SVG）与 A4 练习纸。README 已注明这是教学简化模型。
+
+```bash
+daylength calc --date 2026-06-21 --latitude 39.9
+daylength season --latitude 39.9
+daylength daynight --latitude 39.9 -o chart.html
+daylength sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## fivezones
+
+[![CI](https://github.com/eastyou/fivezones/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/fivezones/actions/workflows/ci.yml)
+
+初中地理地球五带工具：按纬度判定热带、南北温带、南北寒带，边界值归属（回归线归温带、极圈归寒带、赤道归热带）规则写清。支持五带特征查询、多纬度对比、五线五带的分布示意图（SVG 剖面）与 A4 练习纸。
+
+```bash
+fivezones zone --latitude 30.5 --hemisphere n
+fivezones describe --name 热带
+fivezones compare --latitudes 0,23.5,40,66.5,80
+fivezones map -o map.html
+```
+
+## pictograph
+
+[![CI](https://github.com/eastyou/pictograph/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/pictograph/actions/workflows/ci.yml)
+
+小学语文象形字工具：内置 24 个常见象形字，每字含甲骨文、金文描述、构造解说、今义、组词与字源小故事。支持按字源描述猜字的四选一测验、正反面字卡、字与今义连线、造字法判断与 A4 练习纸，演示页含字形演变示意。
+
+```bash
+pictograph show --char 日
+pictograph guess --count 10 --seed 1
+pictograph cards -o cards.html
+pictograph sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## phonetics
+
+[![CI](https://github.com/eastyou/phonetics/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/phonetics/actions/workflows/ci.yml)
+
+英语国际音标工具：内置 44 个音标（单元音 12、双元音 8、辅音 24），每个含中文发音要领与至少 3 个英式音标例词。支持按类型列出、查单个音标、给音标选例词与给例词选音标的四选一测验、音标卡与 A4 练习纸，演示页含口腔发音部位与舌位梯形图。
+
+```bash
+phonetics show --symbol ɪ
+phonetics list --type 元音
+phonetics quiz --count 10 --seed 1
+phonetics cards -o cards.html
+```
+
+## circlekit
+
+[![CI](https://github.com/eastyou/circlekit/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/circlekit/actions/workflows/ci.yml)
+
+初中数学圆与扇形工具：按公式计算圆周长、圆面积、弧长、扇形面积、扇形周长与圆环面积，支持由弧长反推圆心角、由面积反推半径校验。结果保留 2 位小数并带单位，A4 练习纸混合四类题型，演示页含公式卡片与示意图。
+
+```bash
+circlekit circle --radius 5
+circlekit sector --radius 5 --angle 60
+circlekit ring --outer 5 --inner 3
+circlekit sheet --count 8 --seed 1 -o sheet.html --answers
+```
+
+## valence
+
+[![CI](https://github.com/eastyou/valence/actions/workflows/ci.yml/badge.svg)](https://github.com/eastyou/valence/actions/workflows/ci.yml)
+
+初中化学化合价工具：内置 19 个元素与 6 个原子团的化合价表，支持价态查询、交叉法写化学式（自动约分到最简整数比，支持多原子根括号）、化学式读中文名称（大小写敏感与括号配对校验）。含四选一测验与 A4 练习纸。
+
+```bash
+valence query --symbol O
+valence formula --cation Al --anion SO4
+valence name --formula CaCO3
+valence sheet --count 8 --seed 1 -o sheet.html --answers
 ```
 
 ---
